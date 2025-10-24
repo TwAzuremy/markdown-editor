@@ -1,0 +1,63 @@
+@use '../../template/mixin' as mixin;
+
+.mde-button {
+    // These variables are used for the users to quickly set up.
+    --button-radius: 12px;
+    --button-padding: 8px;
+    --button-bg-primary: var(--theme-bg-special);
+    --button-hover-color: var(--theme-color-primary);
+    --button-el-spacing: 8px;
+
+    // Cancel the default style.
+    border: none;
+    outline: none;
+
+    display: flex;
+    align-items: center;
+    gap: var(--button-el-spacing);
+
+    border-radius: var(--button-radius);
+    padding: var(--button-padding);
+
+    transition: background var(--duration-micro-interaction) var(--cb-theme-switch);
+    cursor: pointer;
+
+    &:has(.mde-text) {
+        padding: var(--button-padding) calc(var(--button-padding) * 2);
+    }
+
+    & > .mde-text {
+        color: var(--theme-color-text-primary);
+    }
+
+    & > .mde-icon {
+        color: var(--theme-color-text-secondary);
+    }
+
+    // Size mixed in
+    @include mixin.component-size();
+
+    &__variant {
+        &--primary {
+            background-color: var(--button-bg-primary);
+
+            &[disabled] {
+                background-color: var(--theme-bg-special);
+            }
+        }
+
+        &--transparent {
+            background-color: transparent;
+        }
+    }
+
+    &:hover > .mde-text,
+    &:hover > .mde-icon {
+        color: var(--button-hover-color);
+    }
+
+    &[disabled] > .mde-text,
+    &[disabled] > .mde-icon {
+        color: var(--theme-color-text-placeholder);
+    }
+}
