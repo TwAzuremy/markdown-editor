@@ -1,0 +1,20 @@
+.mde-icon {
+    transition: color var(--duration-micro-interaction) var(--cb-theme-switch);
+
+    &__size {
+        &--small {
+            width: var(--size-svg--sm);
+            height: var(--size-svg--sm);
+        }
+
+        &--medium {
+            width: var(--size-svg--md);
+            height: var(--size-svg--md);
+        }
+
+        &--large {
+            width: var(--size-svg--lg);
+            height: var(--size-svg--lg);
+        }
+    }
+}
