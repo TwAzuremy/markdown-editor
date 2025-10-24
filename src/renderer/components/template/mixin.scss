@@ -1,0 +1,21 @@
+@mixin component-size {
+    &__size {
+        &--small {
+            height: var(--size-component--sm);
+            min-width: var(--size-component--sm);
+            font-size: var(--size-font--sm);
+        }
+
+        &--medium {
+            height: var(--size-component--md);
+            min-width: var(--size-component--md);
+            font-size: var(--size-font--md);
+        }
+
+        &--large {
+            height: var(--size-component--lg);
+            min-width: var(--size-component--lg);
+            font-size: var(--size-font--lg);
+        }
+    }
+}
