@@ -1,0 +1,67 @@
+.app {
+    &__title-bar {
+        width: 100%;
+        height: var(--layout-title-bar);
+        padding: 8px;
+
+        display: flex;
+        align-items: center;
+    }
+
+    &__window-drag {
+        height: var(--layout-title-bar);
+        flex: 1;
+
+        //noinspection CssUnknownProperty
+        -webkit-app-region: drag;
+    }
+
+    &__window-controller {
+        display: flex;
+        align-items: center;
+
+        .mde-button {
+            justify-content: center;
+
+            // Fine-tune the visual size.
+            svg.app__minimize {
+                width: 1.25rem;
+                height: 1.25rem;
+            }
+
+            svg.app__maximize {
+                width: 1.125rem;
+                height: 1.125rem;
+            }
+        }
+
+        svg {
+            --maximize-sec-rect-path--length: 71.3px;
+
+            path {
+                transition: d var(--duration-micro-interaction) var(--cb-status-indicator);
+
+                &#maximize-icon__sec-rect {
+                    stroke-dasharray: var(--maximize-sec-rect-path--length);
+                    stroke-dashoffset: 0;
+
+                    // When maximizing, let the "maximize-icon__rect" transition first,
+                    // and then let the "maximize-icon__sec-rect" transition, so a delay is set here.
+                    transition: stroke-dashoffset var(--duration-micro-interaction) var(--cb-status-indicator) var(--duration-micro-interaction);
+                }
+            }
+
+            &.svg__state--windowing > path {
+                // When windowing, let the "maximize-icon__sec-rect" transition first,
+                // and then let the "maximize-icon__rect" transition, so a delay is set here.
+                transition: d var(--duration-micro-interaction) var(--cb-status-indicator) var(--duration-micro-interaction);
+
+                &#maximize-icon__sec-rect {
+                    stroke-dashoffset: var(--maximize-sec-rect-path--length);
+
+                    transition: stroke-dashoffset var(--duration-micro-interaction) var(--cb-status-indicator);
+                }
+            }
+        }
+    }
+}
