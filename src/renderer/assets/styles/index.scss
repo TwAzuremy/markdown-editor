@@ -1,0 +1,114 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url('../font/Poppins-Regular.woff2');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Jetbrains-mono';
+    src: url('../font/JetBrainsMono-Regular.woff2');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Source-HanSan';
+    src: url('../font/SourceHanSansSC-Regular.woff2');
+}
+
+:root {
+    // base variables
+    // Font family
+    --font-app: 'Poppins', 'Source-HanSan';
+    --font-editor: 'Jetbrains-mono', 'Source-HanSan';
+    --font-fallback: system-ui, -apple-system;
+
+    // Opacity
+    --theme-opacity-bg-app: 1;
+    --theme-opacity-bg-component: 1;
+    --theme-opacity-bg-special: 1;
+    --theme-opacity-primary: 1;
+
+    // Color
+    /* Used for the page background color. */
+    --theme-bg-app: rgba(248, 249, 250, var(--theme-opacity-bg-app, 1));
+    /* Used for larger containers such as sidebars and modals. */
+    --theme-bg-component: rgba(255, 255, 255, var(--theme-opacity-bg-component, 1));
+    /* Used for some basic components. */
+    --theme-bg-special: rgba(245, 245, 245, var(--theme-opacity-bg-special, 1));
+    // Color - base color
+    /* Product color, used for decoration. */
+    --theme-color-primary: rgba(64, 145, 255, var(--theme-opacity-primary, 1));
+    /* The following four colors are generally used for information display. */
+    --theme-color-info: rgba(0, 122, 255, 1);
+    --theme-color-warn: rgba(255, 149, 0, 1);
+    --theme-color-error: rgba(245, 108, 108, 1);
+    --theme-color-success: rgba(52, 199, 89, 1);
+    // Color - text color
+    --theme-color-text-primary: rgb(44, 44, 46);
+    --theme-color-text-secondary: rgb(109, 109, 111);
+    /* In addition to being used as a placeholder,
+        it can also be used for the font color when disabled. */
+    --theme-color-text-placeholder: rgb(196, 196, 198);
+    // Color - divider color
+    --theme-color-divider: rgb(232, 232, 232);
+    /* Mostly used when the background is the page color. */
+    --theme-color-divider-strong: rgb(224, 224, 224);
+    // Color - shadow color
+    /* Recommended shadow colors for Material Design. */
+    --theme-color-shadow: rgba(60, 64, 67, 0.15);
+
+    // Font Weight
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    // Size
+    /* default component size - the most commonly used */
+    /* Height settings for most components. */
+    --size-component--sm: 2rem;
+    --size-component--md: 2.5rem;
+    --size-component--lg: 3rem;
+    /* default svg size - the most commonly used */
+    --size-svg--sm: 1rem;
+    --size-svg--md: 1.5rem;
+    --size-svg--lg: 2rem;
+    /* line height */
+    --size-line-height: 1.5rem;
+    /* default font size - the most commonly used */
+    --size-font--sm: 0.75rem;
+    --size-font--md: 0.875rem;
+    --size-font--lg: 1rem;
+
+    // Animation duration
+    --duration-micro-interaction: 200ms;
+
+    // Animation cubic bezier
+    --cb-theme-switch: cubic-bezier(0.4, 0, 0.2, 1);
+    --cb-status-indicator: ease-out;
+
+    // Layout size
+    --layout-title-bar: 56px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    font-weight: var(--font-weight-regular);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--theme-bg-app);
+}
