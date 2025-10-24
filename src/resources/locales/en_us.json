@@ -1,0 +1,7 @@
+{
+    "display.name": "English",
+    "title-bar.window-controller.minimize": "Minimize",
+    "title-bar.window-controller.maximize": "Maximize",
+    "title-bar.window-controller.unmaximize": "Restore",
+    "title-bar.window-controller.close": "Close"
+}
