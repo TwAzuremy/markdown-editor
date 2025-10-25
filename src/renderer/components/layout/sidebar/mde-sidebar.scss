@@ -1,0 +1,7 @@
+.app {
+    &__sidebar {
+        grid-area: 1 / 1 / 4 / 2;
+        width: var(--layout-sidebar);
+        height: 100vh;
+    }
+}

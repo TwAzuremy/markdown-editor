@@ -1,6 +1,6 @@
 .app {
     &__title-bar {
-        width: 100%;
+        grid-area: 1 / 2 / 2 / 3;
         height: var(--layout-title-bar);
         padding: 8px;
 

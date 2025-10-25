@@ -1,0 +1,6 @@
+.app {
+    &__footer {
+        grid-area: 3 / 2 / 4 / 3;
+        height: var(--layout-footer);
+    }
+}
