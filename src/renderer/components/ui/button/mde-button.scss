@@ -19,7 +19,6 @@
     border-radius: var(--button-radius);
     padding: var(--button-padding);
 
-    transition: background var(--duration-micro-interaction) var(--cb-theme-switch);
     cursor: pointer;
 
     &:has(.mde-text) {
@@ -51,13 +50,13 @@
         }
     }
 
-    &:hover > .mde-text,
-    &:hover > .mde-icon {
+    &:hover>.mde-text,
+    &:hover>.mde-icon {
         color: var(--button-hover-color);
     }
 
-    &[disabled] > .mde-text,
-    &[disabled] > .mde-icon {
+    &[disabled]>.mde-text,
+    &[disabled]>.mde-icon {
         color: var(--theme-color-text-placeholder);
     }
 }

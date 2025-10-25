@@ -16,9 +16,7 @@
     // Changing this value requires also modifying the values of `gap`, `padding`, and `transform`.
     padding: 8px;
 
-    transition: background var(--duration-micro-interaction) var(--cb-theme-switch);
     cursor: pointer;
-
     overflow-y: hidden;
 
     & > .mde-icon {
