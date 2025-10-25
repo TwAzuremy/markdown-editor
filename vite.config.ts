@@ -54,5 +54,9 @@ export default defineConfig({
             '@styles': resolve(__dirname, './src/renderer/assets/styles'),
             '@utils': resolve(__dirname, './src/utils')
         }
+    },
+    define: {
+        'import.meta.env.VITE_APP_NAME': JSON.stringify(process.env.npm_package_name),
+        'import.meta.env.VITE_APP_PRODUCT_NAME': JSON.stringify(process.env.npm_package_productName)
     }
 });

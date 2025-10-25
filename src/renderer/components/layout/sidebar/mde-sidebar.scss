@@ -8,4 +8,32 @@
         background: var(--theme-bg-component);
         box-shadow: 4px 0 8px 0 var(--theme-color-shadow);
     }
+
+    &__logo {
+        width: 2.25rem;
+        height: 2.25rem;
+        margin-left: 2px;
+
+        user-select: none;
+    }
+
+    &__name {
+        font-size: 1rem;
+        font-weight: var(--font-weight-semibold);
+        line-height: var(--size-line-height);
+        color: var(--theme-color-primary);
+
+        user-select: none;
+    }
+}
+
+.sidebar {
+    &__header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        padding: var(--padding-3);
+        height: calc(var(--size-component--md) + 2 * var(--padding-3));
+    }
 }
