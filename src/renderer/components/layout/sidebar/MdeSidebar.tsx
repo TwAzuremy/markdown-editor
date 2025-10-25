@@ -6,9 +6,9 @@ import MdeIcon from "@ui/icon/MdeIcon.tsx";
 import {HtmlCssUtil} from "@utils/HtmlCssUtil.ts";
 import {StoreUtil} from "@utils/StoreUtil.ts";
 import {STORE_KEY} from "@/constants/config.enum.ts";
+import {getRendererLog} from "@utils/IpcLogUtil.ts";
 
 import './mde-sidebar.scss';
-import {getRendererLog} from "@utils/IpcLogUtil.ts";
 
 function MdeSidebar(): ReactElement<HTMLElement> {
     const APP_NAME: string = import.meta.env.VITE_APP_PRODUCT_NAME ||
