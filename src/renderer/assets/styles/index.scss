@@ -1,3 +1,4 @@
+/* Poppins */
 @font-face {
     font-family: 'Poppins';
     src: url('../font/Poppins-Regular.woff2');
@@ -26,34 +27,20 @@
     font-style: italic;
 }
 
+/* Jetbrains mono */
 @font-face {
     font-family: 'Jetbrains-mono';
-    src: url('../font/JetBrainsMono-Regular.woff2');
-    font-weight: 400;
+    src: url('../font/JetBrainsMono-VariableFont_wght.woff2');
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Jetbrains-mono';
-    src: url('../font/JetBrainsMono-SemiBold.woff2');
-    font-weight: 600;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Jetbrains-mono';
-    src: url('../font/JetBrainsMono-Italic.woff2');
-    font-weight: 400;
+    src: url('../font/JetBrainsMono-Italic-VariableFont_wght.woff2');
     font-style: italic;
 }
 
-@font-face {
-    font-family: 'Jetbrains-mono';
-    src: url('../font/JetBrainsMono-SemiBoldItalic.woff2');
-    font-weight: 600;
-    font-style: italic;
-}
-
+/* Source HanSan SC */
 @font-face {
     font-family: 'Source-HanSan';
     src: url('../font/SourceHanSansSC-Regular.woff2');
@@ -133,6 +120,13 @@
     --layout-sidebar: 260px;
     --layout-title-bar: 56px;
     --layout-footer: var(--size-component--sm, 32px);
+
+    // Commonly used padding
+    // Multiples of 4
+    --padding-1: 4px;
+    --padding-2: 8px;
+    --padding-3: 12px;
+    --padding-4: 16px;
 }
 
 *,
