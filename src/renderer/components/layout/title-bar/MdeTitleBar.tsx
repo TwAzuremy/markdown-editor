@@ -6,7 +6,7 @@ import {useI18n} from "@renderer/hook/useI18n.ts";
 
 import "./mde-title-bar.scss";
 
-function MdeTitleBar(): ReactElement {
+function MdeTitleBar(): ReactElement<HTMLElement> {
     const {t} = useI18n();
 
     const [isMaximized, setIsMaximized] = useState(false);
@@ -89,7 +89,7 @@ function MdeTitleBar(): ReactElement {
     //  The width of the first draggable element is equal to `(100vh - input box width (declared using a CSS variable)) / 2`,
     //  minus the sidebar width (declared using a CSS variable).
     return (
-        <div className={"app__title-bar"}>
+        <header className={"app__title-bar"}>
             {/* Control the dragging of the window. */}
             <div className={"app__window-drag"}></div>
             <div className={"app__window-controller"}>
@@ -116,7 +116,7 @@ function MdeTitleBar(): ReactElement {
                     onClick={windowClose}
                 />
             </div>
-        </div>
+        </header>
     );
 }
 
