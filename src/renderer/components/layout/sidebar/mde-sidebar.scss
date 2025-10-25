@@ -34,6 +34,12 @@
         gap: 8px;
 
         padding: var(--padding-3);
+        // Calculate the element height through the internal component height.
         height: calc(var(--size-component--md) + 2 * var(--padding-3));
+    }
+
+    &__footer {
+        // TODO [Reserved] Incomplete layout structure
+        display: flex;
     }
 }
