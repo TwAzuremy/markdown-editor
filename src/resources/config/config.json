@@ -1,10 +1,10 @@
 {
-	"window": {
-		"maximize": false,
-		"bounds": {
-			"width": 1280,
-			"height": 800
-		}
-	},
-	"language": "en_us"
+    "window": {
+        "maximize": false,
+        "bounds": {
+            "width": 1280,
+            "height": 800
+        }
+    },
+    "language": "en_us"
 }

@@ -28,3 +28,6 @@ release
 # idea compiled .css file
 *.css
 *.css.map
+
+# Default configuration file
+src/resources/config/config.json
