@@ -6,5 +6,6 @@
         },
         "maximize": false
     },
-    "language": "en_us"
+    "language": "en_us",
+    "theme": "auto"
 }

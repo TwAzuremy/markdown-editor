@@ -59,7 +59,7 @@
     --theme-opacity-bg-special: 1;
     --theme-opacity-primary: 1;
 
-    // Color
+    // Color - light mode
     /* Used for the page background color. */
     --theme-bg-app: rgba(248, 249, 250, var(--theme-opacity-bg-app, 1));
     /* Used for larger containers such as sidebars and modals. */
@@ -111,6 +111,7 @@
 
     // Animation duration
     --duration-micro-interaction: 200ms;
+    --duration-theme-switch: 300ms;
 
     // Animation cubic bezier
     --cb-theme-switch: cubic-bezier(0.4, 0, 0.2, 1);
@@ -137,6 +138,11 @@
     padding: 0;
 }
 
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+}
+
 html {
     font-size: 16px;
     font-weight: var(--font-weight-regular);
@@ -144,6 +150,30 @@ html {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+/* Dark mode */
+html[data-theme="dark"] {
+    // Color
+    /* Used for the page background color. */
+    --theme-bg-app: rgba(18, 18, 18, var(--theme-opacity-bg-app, 1));
+    /* Used for larger containers such as sidebars and modals. */
+    --theme-bg-component: rgba(30, 30, 30, var(--theme-opacity-bg-component, 1));
+    /* Used for some basic components. */
+    --theme-bg-special: rgba(42, 42, 42, var(--theme-opacity-bg-special, 1));
+    // Color - text color
+    --theme-color-text-primary: rgb(245, 245, 247);
+    --theme-color-text-secondary: rgb(152, 152, 157);
+    /* In addition to being used as a placeholder,
+        it can also be used for the font color when disabled. */
+    --theme-color-text-placeholder: rgb(99, 99, 102);
+    // Color - divider color
+    --theme-color-divider: rgb(58, 58, 60);
+    /* Mostly used when the background is the page color. */
+    --theme-color-divider-strong: rgb(64, 64, 64);
+    // Color - shadow color
+    /* Recommended shadow colors for Material Design. */
+    --theme-color-shadow: rgba(20, 20, 20, 0.5);
 }
 
 body {

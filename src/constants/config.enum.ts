@@ -5,4 +5,5 @@ export enum STORE_KEY {
     WINDOW_BOUNDS = 'window.bounds',
     WINDOW_MAXIMIZE = 'window.maximize',
     LANGUAGE = 'language',
+    THEME = 'theme',
 }
