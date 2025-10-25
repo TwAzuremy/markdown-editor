@@ -29,5 +29,5 @@ release
 *.css
 *.css.map
 
-# Default configuration file
+# Default config file
 src/resources/config/config.json
