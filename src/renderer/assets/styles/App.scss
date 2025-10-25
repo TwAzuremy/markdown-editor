@@ -1,3 +1,10 @@
 #root {
     font-family: var(--font-app), var(--font-fallback), sans-serif;
 }
+
+.app {
+    display: grid;
+    grid-template-columns: var(--layout-sidebar) auto;
+    grid-template-rows: var(--layout-title-bar) auto var(--layout-footer);
+    grid-gap: 0;
+}
