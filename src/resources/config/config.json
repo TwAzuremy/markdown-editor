@@ -2,8 +2,6 @@
 	"window": {
 		"maximize": false,
 		"bounds": {
-			"x": 320,
-			"y": 116,
 			"width": 1280,
 			"height": 800
 		}
