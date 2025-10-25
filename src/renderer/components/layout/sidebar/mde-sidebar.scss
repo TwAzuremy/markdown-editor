@@ -3,5 +3,9 @@
         grid-area: 1 / 1 / 4 / 2;
         width: var(--layout-sidebar);
         height: 100vh;
+
+        border-radius: 0 24px 24px 0;
+        background: var(--theme-bg-component);
+        box-shadow: 4px 0 8px 0 var(--theme-color-shadow);
     }
 }

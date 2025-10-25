@@ -33,6 +33,10 @@
                 width: 1.125rem;
                 height: 1.125rem;
             }
+
+            &:last-child:hover .mde-icon {
+                color: var(--theme-color-error);
+            }
         }
 
         svg {
