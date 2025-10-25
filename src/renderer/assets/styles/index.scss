@@ -2,12 +2,56 @@
     font-family: 'Poppins';
     src: url('../font/Poppins-Regular.woff2');
     font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../font/Poppins-SemiBold.woff2');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../font/Poppins-Italic.woff2');
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../font/Poppins-SemiBoldItalic.woff2');
+    font-weight: 600;
+    font-style: italic;
 }
 
 @font-face {
     font-family: 'Jetbrains-mono';
     src: url('../font/JetBrainsMono-Regular.woff2');
     font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Jetbrains-mono';
+    src: url('../font/JetBrainsMono-SemiBold.woff2');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Jetbrains-mono';
+    src: url('../font/JetBrainsMono-Italic.woff2');
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Jetbrains-mono';
+    src: url('../font/JetBrainsMono-SemiBoldItalic.woff2');
+    font-weight: 600;
+    font-style: italic;
 }
 
 @font-face {
@@ -59,9 +103,7 @@
 
     // Font Weight
     --font-weight-regular: 400;
-    --font-weight-medium: 500;
     --font-weight-semibold: 600;
-    --font-weight-bold: 700;
 
     // Size
     /* default component size - the most commonly used */
