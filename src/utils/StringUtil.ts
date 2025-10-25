@@ -36,4 +36,35 @@ export class StringUtil {
             })
             .join(' ');
     }
+
+    /**
+     * Converts a time string to milliseconds.
+     *
+     * This function parses a time string (e.g., '1s', '500ms', '0.2s') and returns the equivalent value in milliseconds.
+     * If the input string doesn't match the expected format, it returns `null`.
+     *
+     * @param {string} timeStr - The time string to convert. It can be in the form of 's' for seconds or 'ms' for milliseconds (e.g., '1s', '500ms', '0.2s').
+     * @returns {number | null} - The equivalent time in milliseconds, or `null` if the input string is invalid.
+     */
+    public static convertToMilliseconds(timeStr: string): number | null {
+        // Use a regular expression to match the time format (seconds or milliseconds)
+        const timePattern = /^(\d*\.?\d+)(s|ms)$/;
+        const match = timeStr.trim().match(timePattern);
+
+        if (!match) {
+            return null;
+        }
+
+        const value = parseFloat(match[1]);
+        const unit = match[2] as 's' | 'ms';
+
+        // Convert based on the unit (seconds or milliseconds)
+        if (unit === 's') {
+            return value * 1000;
+        } else if (unit === 'ms') {
+            return value;
+        }
+
+        return null;
+    }
 }
