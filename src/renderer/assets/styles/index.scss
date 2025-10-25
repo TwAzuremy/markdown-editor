@@ -88,7 +88,9 @@
     --cb-status-indicator: ease-out;
 
     // Layout size
+    --layout-sidebar: 260px;
     --layout-title-bar: 56px;
+    --layout-footer: var(--size-component--sm, 32px);
 }
 
 *,
