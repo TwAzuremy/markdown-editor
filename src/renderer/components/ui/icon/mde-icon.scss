@@ -1,3 +1,5 @@
+@use '../../template/mixin' as mixin;
+
 .mde-icon {
     transition: color var(--duration-micro-interaction) var(--cb-theme-switch);
 
@@ -15,6 +17,20 @@
         &--large {
             width: var(--size-svg--lg);
             height: var(--size-svg--lg);
+        }
+    }
+
+    &__size {
+        &--small[data-fixed-size=true] {
+            @include mixin.fixed-size(var(--size-svg--sm), var(--size-svg--sm));
+        }
+
+        &--medium[data-fixed-size=true] {
+            @include mixin.fixed-size(var(--size-svg--md), var(--size-svg--md));
+        }
+
+        &--large[data-fixed-size=true] {
+            @include mixin.fixed-size(var(--size-svg--lg), var(--size-svg--lg));
         }
     }
 }

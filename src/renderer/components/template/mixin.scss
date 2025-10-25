@@ -19,3 +19,10 @@
         }
     }
 }
+
+@mixin fixed-size($width, $height) {
+    min-width: $width;
+    max-width: $width;
+    min-height: $height;
+    max-height: $height;
+}

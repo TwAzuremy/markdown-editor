@@ -17,15 +17,19 @@ import "./mde-icon.scss";
 /**
  * `MdeIconProps` Interface
  *
- * Defines the expected properties for the `MdeIcon` component.
+ * Defines the expected properties for the `MdeIcon` component, which renders an SVG icon.
+ * The properties include the name of the icon, its size, an optional render callback, and other configuration options.
  *
- * @property {string} name - The name of the SVG icon file to render.
- * @property {componentSize} [size] - Defines the size of the icon. Can be `'small'`, `'medium'`, or `'large'`.
- * @property {function} [onRender] - A callback function that is called when the icon has been rendered.
+ * @property {string} name - The name of the SVG icon to render. This should correspond to the icon file.
+ * @property {componentSize} [size] - The size of the icon. Can be one of `'small'`, `'medium'`, or `'large'`. If not provided, defaults to a standard size.
+ * @property {boolean} [fixedSize] - Forces the icon to maintain a fixed size regardless of any external styling.
+ * @property {function} [onRender] - A callback function that is invoked once the icon is rendered. This is useful for triggering actions or events after rendering.
  */
 interface MdeIconProps extends SVGProps<SVGSVGElement> {
     name: string;
     size?: componentSize;
+    // Used to enforce a fixed icon size
+    fixedSize?: boolean;
     onRender?: (...args: unknown[]) => void;
     ref?: ForwardedRef<SVGSVGElement>;
 }
@@ -58,28 +62,35 @@ const ICON_CACHE: IconCache = {};
  * `MdeIcon` Component
  *
  * A React component that lazily loads SVG icon components based on the provided `name` prop.
- * It utilizes React's `lazy` and `Suspense` to load the icons asynchronously, improving performance.
- * The global cache (`ICON_CACHE`) is used to prevent reloading the same icon multiple times.
+ * The icon is asynchronously loaded using React's `lazy` and `Suspense` for improved performance.
+ * The component uses a global cache (`ICON_CACHE`) to prevent reloading the same icon multiple times.
  *
- * @param {string} name - The name of the icon to render. This corresponds to the SVG file's name in the assets folder.
- * @param {string} [size='medium'] - The size of the icon. Can be one of the following:
+ * @param {string} name - The name of the icon to render. This corresponds to the SVG file's name
+ * in the assets folder. For example, `name="left"` will load the `left.svg` icon.
+ * @param {string} [size='medium'] - The size of the icon. This defines the CSS class to apply for
+ * styling the icon's dimensions. Accepted values are:
  * - `'small'`: Renders the icon in a smaller size.
  * - `'medium'`: The default size for the icon.
  * - `'large'`: Renders the icon in a larger size.
- *
- * The `size` prop determines the CSS class that will be applied to style the icon's dimensions.
- *
- * @param {function} [onRender] - A callback function invoked when the icon has been rendered.
- * @param {React.Ref} [ref] - A reference to the rendered SVG element.
+ * @param {function} [onRender] - A callback function that is invoked once the icon has been rendered.
+ * This can be used for any side effects once the icon is mounted.
+ * @param {React.Ref} [ref] - A reference to the rendered SVG element. This allows for external control
+ * or access to the DOM node of the icon.
+ * @param {boolean} [fixedSize=false] - If `true`, the icon will not be resized based on the surrounding
+ * context (e.g., in a responsive layout).
+ * @param {string} [className] - Additional class name(s) to apply to the icon component for further
+ * customization and styling.
  *
  * @returns {React.FC} - A `Suspense`-wrapped icon component that lazily loads the specified SVG icon.
+ * The icon is rendered only when it's successfully loaded from the cache or the assets folder.
  *
  * @example
+ * // Renders a small "left" icon
  * <MdeIcon name="left" size="small" />
  */
 const MdeIcon: React.FC<MdeIconProps> =
     memo(forwardRef((
-        {name, size = 'medium', className, onRender, ...props},
+        {name, size = 'medium', fixedSize = false, className, onRender, ...props},
         ref) => {
         const internalRef = useRef<SVGSVGElement>(null);
 
@@ -122,6 +133,7 @@ const MdeIcon: React.FC<MdeIconProps> =
                         'mde-icon', `mde-icon__size--${size}`, className)}
                     {...props}
                     ref={combinedRef}
+                    data-fixed-size={fixedSize}
                 />
             </Suspense>
         );
