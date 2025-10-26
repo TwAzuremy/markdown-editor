@@ -1,4 +1,5 @@
 .mde-text {
     line-height: var(--size-line-height);
+    color: var(--theme-color-text-primary);
     transition: color var(--duration-micro-interaction) var(--cb-theme-switch);
 }

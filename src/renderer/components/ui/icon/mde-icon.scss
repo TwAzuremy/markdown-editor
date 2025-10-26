@@ -1,6 +1,7 @@
 @use '../../template/mixin' as mixin;
 
 .mde-icon {
+    color: var(--theme-color-text-secondary);
     transition: color var(--duration-micro-interaction) var(--cb-theme-switch);
 
     &__size {
