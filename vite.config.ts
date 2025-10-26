@@ -57,6 +57,7 @@ export default defineConfig({
     },
     define: {
         'import.meta.env.VITE_APP_NAME': JSON.stringify(process.env.npm_package_name),
-        'import.meta.env.VITE_APP_PRODUCT_NAME': JSON.stringify(process.env.npm_package_productName)
+        'import.meta.env.VITE_APP_PRODUCT_NAME': JSON.stringify(process.env.npm_package_productName),
+        'import.meta.env.VITE_APP_VERSION': JSON.stringify(process.env.npm_package_version)
     }
 });

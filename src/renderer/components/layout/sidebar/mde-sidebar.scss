@@ -39,7 +39,26 @@
     }
 
     &__footer {
-        // TODO [Reserved] Incomplete layout structure
         display: flex;
+        align-items: center;
+
+        padding: var(--padding-3);
+
+        & > .mde-icon,
+        & > .mde-text {
+            color: var(--theme-color-text-placeholder);
+        }
+
+        .mde-icon__version {
+            margin-left: var(--padding-2);
+        }
+
+        & > .mde-text {
+            margin-left: var(--padding-1);
+        }
+
+        .mde-blank--flex ~ [class*="button"] {
+            margin-left: var(--padding-2);
+        }
     }
 }

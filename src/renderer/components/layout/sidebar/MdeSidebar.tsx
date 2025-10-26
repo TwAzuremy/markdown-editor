@@ -7,12 +7,16 @@ import {HtmlCssUtil} from "@utils/HtmlCssUtil.ts";
 import {StoreUtil} from "@utils/StoreUtil.ts";
 import {STORE_KEY} from "@/constants/config.enum.ts";
 import {getRendererLog} from "@utils/IpcLogUtil.ts";
+import MdeText from "@ui/text/MdeText.tsx";
+import MdeFlexBlank from "@ui/blank/MdeFlexBlank.tsx";
+import MdeButton from "@ui/button/MdeButton.tsx";
 
 import './mde-sidebar.scss';
 
 function MdeSidebar(): ReactElement<HTMLElement> {
     const APP_NAME: string = import.meta.env.VITE_APP_PRODUCT_NAME ||
         import.meta.env.VITE_APP_NAME || 'Markdown Editor';
+    const APP_VERSION: string = import.meta.env.VITE_APP_VERSION || '0.0.0';
 
     const [isDark, setIsDark] = useState<boolean>(false);
     const themeButtonRef = useRef<HTMLLabelElement>(null);
@@ -78,7 +82,7 @@ function MdeSidebar(): ReactElement<HTMLElement> {
                     ]
                 },
                 {
-                    // Set the transition duration from a CSS variable or fallback to 300ms
+                    // Set the transition duration from a CSS variable or fallback to 300 ms
                     duration: StringUtil.convertToMilliseconds(
                         HtmlCssUtil.getRootVariable('--duration-theme-switch')
                     ) || 300,
@@ -120,6 +124,10 @@ function MdeSidebar(): ReactElement<HTMLElement> {
             </header>
             <main className={"sidebar__container"}></main>
             <footer className={"sidebar__footer"}>
+                <MdeIcon name={'version'} size={'small'} className={'mde-icon__version'}/>
+                {/* TODO [FEATURES] Click to go to GitHub. */}
+                <MdeText tKey={APP_VERSION} noTranslate/>
+                <MdeFlexBlank/>
                 <MdeToggleButton
                     size={'small'}
                     icon={<MdeIcon name={'moon'} size={'small'} fixedSize/>}
@@ -127,6 +135,12 @@ function MdeSidebar(): ReactElement<HTMLElement> {
                     isActive={isDark}
                     ref={themeButtonRef}
                     onSwitch={switchTheme}
+                />
+                {/* TODO [SCHEME] Open the settings panel. */}
+                <MdeButton
+                    size={'small'}
+                    variant={'primary'}
+                    icon={<MdeIcon name={'settings'} size={'small'}/>}
                 />
             </footer>
         </aside>
