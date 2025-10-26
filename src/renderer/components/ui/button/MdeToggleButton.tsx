@@ -117,7 +117,7 @@ const MdeToggleButton: React.FC<MdeToggleButtonProps> =
          *
          * @param {React.ChangeEvent<HTMLInputElement>} event - The change event triggered by the toggle switch.
          */
-        function change(event: React.ChangeEvent<HTMLInputElement>) {
+        function handlerChange(event: React.ChangeEvent<HTMLInputElement>) {
             // Get the new checked state of the checkbox.
             const checked = event.currentTarget.checked;
 
@@ -141,7 +141,7 @@ const MdeToggleButton: React.FC<MdeToggleButtonProps> =
                 ref={ref}
                 {...props}
             >
-                <input type="checkbox" checked={isChecked} disabled={disabled} onChange={change}/>
+                <input type="checkbox" checked={isChecked} disabled={disabled} onChange={handlerChange}/>
                 {icon}
                 {activeIcon}
             </label>
