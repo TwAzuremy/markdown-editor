@@ -10,6 +10,7 @@ import {getRendererLog} from "@utils/IpcLogUtil.ts";
 import MdeText from "@ui/text/MdeText.tsx";
 import MdeFlexBlank from "@ui/blank/MdeFlexBlank.tsx";
 import MdeButton from "@ui/button/MdeButton.tsx";
+import MdeTab from "@ui/tab/MdeTab.tsx";
 
 import './mde-sidebar.scss';
 
@@ -122,7 +123,15 @@ function MdeSidebar(): ReactElement<HTMLElement> {
                 <img src={LOGO} alt="LOGO" className={'app__logo'} draggable={false}/>
                 <h4 className={"app__name"}>{StringUtil.formatStringToTitleCase(APP_NAME)}</h4>
             </header>
-            <main className={"sidebar__container"}></main>
+            <main className={"sidebar__container"}>
+                <MdeTab direction={'horizontal'}>
+                    {/* TODO [FEATURES] Explorer */}
+                    <MdeText tKey={'sidebar.tab.explorer'} canSelect={false}/>
+                    <div>Currently in planning...</div>
+                    <MdeText tKey={'sidebar.tab.outline'} canSelect={false}/>
+                    <div>Look forward to it...</div>
+                </MdeTab>
+            </main>
             <footer className={"sidebar__footer"}>
                 <MdeIcon name={'version'} size={'small'} className={'mde-icon__version'}/>
                 {/* TODO [FEATURES] Click to go to GitHub. */}

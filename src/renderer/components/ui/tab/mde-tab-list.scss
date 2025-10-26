@@ -1,0 +1,52 @@
+.mde-tab__list {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    height: var(--size-component--md);
+    margin: 0 var(--padding-3) var(--padding-2);
+
+    border-radius: var(--tab-radius);
+    background: var(--theme-bg-special);
+
+    &--item {
+        flex: 1;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        height: 100%;
+        cursor: pointer;
+
+        z-index: 1;
+
+        .mde-text {
+            font-size: var(--size-font--sm);
+            color: var(--theme-color-text-secondary);
+            transition: color var(--duration-micro-interaction) var(--cb-status-indicator);
+        }
+    }
+
+    &--current .mde-text {
+        color: var(--theme-color-primary);
+    }
+
+    &--slider {
+        --tab-slider-width: calc(50% - var(--tab-slider-margin));
+
+        position: absolute;
+        top: var(--tab-slider-margin);
+        left: calc(var(--tab-slider-margin) + var(--tab-current) * var(--tab-slider-width));
+
+        width: var(--tab-slider-width);
+        height: calc(100% - 2 * var(--tab-slider-margin));
+
+        border-radius: calc(var(--tab-radius) - var(--tab-slider-margin));
+        background: var(--theme-bg-component);
+
+        pointer-events: none;
+        transition: left var(--duration-micro-interaction) var(--cb-status-indicator);
+    }
+}

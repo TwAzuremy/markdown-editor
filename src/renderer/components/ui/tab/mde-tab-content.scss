@@ -1,0 +1,23 @@
+.mde-tab__content {
+    display: flex;
+    flex: 1;
+
+    width: calc(var(--layout-sidebar) * var(--tab-number));
+
+    translate: calc(var(--layout-sidebar) * var(--tab-current) * -1);
+    transition: translate var(--duration-micro-interaction) var(--cb-status-indicator);
+
+    &--item {
+        width: var(--layout-sidebar);
+
+        opacity: 1;
+        pointer-events: auto;
+
+        transition: opacity var(--duration-micro-interaction) var(--cb-status-indicator);
+
+        &.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+}
