@@ -27,10 +27,12 @@
 
     & > .mde-text {
         color: var(--theme-color-text-primary);
+        transition: color var(--duration-micro-interaction) var(--cb-theme-switch);
     }
 
     & > .mde-icon {
         color: var(--theme-color-text-secondary);
+        transition: color var(--duration-micro-interaction) var(--cb-theme-switch);
     }
 
     // Size mixed in
