@@ -144,6 +144,8 @@
 }
 
 html {
+    // default text color
+    color: var(--theme-color-text-primary);
     font-size: 16px;
     font-weight: var(--font-weight-regular);
     font-synthesis: none;
