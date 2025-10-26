@@ -1,6 +1,9 @@
 .app {
     &__sidebar {
         grid-area: 1 / 1 / 4 / 2;
+
+        display: flex;
+        flex-direction: column;
         width: var(--layout-sidebar);
         height: 100vh;
 
@@ -36,6 +39,10 @@
         padding: var(--padding-3);
         // Calculate the element height through the internal component height.
         height: calc(var(--size-component--md) + 2 * var(--padding-3));
+    }
+
+    &__container {
+        flex: 1;
     }
 
     &__footer {
