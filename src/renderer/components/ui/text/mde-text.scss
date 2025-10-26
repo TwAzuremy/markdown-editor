@@ -1,4 +1,8 @@
 .mde-text {
     line-height: var(--size-line-height);
     color: var(--theme-color-text-primary);
+
+    &.non-selectable {
+        user-select: none;
+    }
 }

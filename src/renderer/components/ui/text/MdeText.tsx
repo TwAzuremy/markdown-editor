@@ -11,12 +11,14 @@ import "./mde-text.scss";
  *
  * @property {string} tKey - The key used to fetch the corresponding text from the translation context.
  * @property {boolean} [noTranslate=false] - Optional flag that, if set to true, skips translation and renders the translation key as text.
+ * @property {boolean} [canSelect=true] - Optional flag that controls whether the text can be selected. If true, the text can be selected, otherwise it is non-selectable.
  */
 type MdeTextProps = {
     // The translation key for retrieving the text
     tKey: string;
     // Flag to control whether to skip translation and render the key directly
     noTranslate?: boolean;
+    canSelect?: boolean;
 } & React.HTMLAttributes<HTMLSpanElement>;
 
 /**
@@ -27,6 +29,7 @@ type MdeTextProps = {
  *
  * @param {string} tKey - The translation key to look up in the i18n context.
  * @param {boolean} [noTranslate=false] - Optional flag to prevent translation and render the key directly. Defaults to `false`.
+ * @param {boolean} [canSelect=true] - Optional flag used to enable text selection. The default value is `true`.
  *
  * @returns {JSX.Element} A `span` element containing either the translated text or the raw `tKey`.
  *
@@ -37,13 +40,18 @@ type MdeTextProps = {
  * ```
  */
 const MdeText: React.FC<MdeTextProps> =
-    memo(({tKey, noTranslate = false, className, ...props}) => {
+    memo(({tKey, noTranslate = false, canSelect = true, className, ...props}) => {
         const {t} = useI18n();
         const text = noTranslate ? tKey : t(tKey);
 
         return (
-            <span className={StringUtil.combinedClassName('mde-text', className)}
-                  {...props}>{text}</span>
+            <span
+                className={StringUtil.combinedClassName(
+                    'mde-text', canSelect ? undefined : 'non-selectable', className
+                )}
+                {...props}>
+                {text}
+            </span>
         );
     });
 
