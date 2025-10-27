@@ -1,0 +1,57 @@
+@use 'sass:map';
+@use '../../template/function' as function;
+@use '../../template/mixin' as mixin;
+
+.mde-tooltip {
+    $direction: (top, bottom, left, right);
+
+    --tooltip-distance: 8px;
+    --tooltip-radius: 8px;
+
+    position: relative;
+    // Make the component fit the subcomponent.
+    display: flex;
+
+    &__text,
+    .mde-text {
+        color: var(--theme-color-primary);
+        font-size: var(--size-font--sm);
+        // Text does not wrap
+        white-space: nowrap;
+        line-height: 1.5rem;
+    }
+
+    &__text {
+        position: absolute;
+        padding: 0 var(--padding-2);
+
+        border-radius: var(--tooltip-radius);
+        background: var(--theme-bg-component);
+        box-shadow: 0 4px 8px 0 var(--theme-color-shadow);
+
+        opacity: 0;
+
+        user-select: none;
+        pointer-events: none;
+
+        transition: margin var(--duration-micro-interaction) var(--cb-status-indicator),
+        opacity var(--duration-micro-interaction) var(--cb-status-indicator);
+    }
+
+    @each $d in $direction {
+        // Generate styles in 4 directions.
+        &.mde-tooltip__position--#{$d} &__text {
+            $axis: function.axis($d);
+            $reverse-direction: map.get(function.$reverse-direction-map, $d);
+
+            margin-#{$reverse-direction}: calc(-1 * var(--tooltip-distance));
+            #{$reverse-direction}: calc(100% + var(--tooltip-distance));
+            @include mixin.transform-center($axis, null, true);
+        }
+    }
+
+    & > *:hover ~ &__text {
+        opacity: 1;
+        margin: 0;
+    }
+}

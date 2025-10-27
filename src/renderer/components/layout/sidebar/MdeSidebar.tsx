@@ -11,6 +11,7 @@ import MdeText from "@ui/text/MdeText.tsx";
 import MdeFlexBlank from "@ui/blank/MdeFlexBlank.tsx";
 import MdeButton from "@ui/button/MdeButton.tsx";
 import MdeTab from "@ui/tab/MdeTab.tsx";
+import MdeTooltip from "@ui/tooltip/MdeTooltip.tsx";
 
 import './mde-sidebar.scss';
 
@@ -137,20 +138,24 @@ function MdeSidebar(): ReactElement<HTMLElement> {
                 {/* TODO [FEATURES] Click to go to GitHub. */}
                 <MdeText tKey={APP_VERSION} noTranslate/>
                 <MdeFlexBlank/>
-                <MdeToggleButton
-                    size={'small'}
-                    icon={<MdeIcon name={'moon'} size={'small'} fixedSize/>}
-                    activeIcon={<MdeIcon name={'sun'} size={'small'} fixedSize/>}
-                    isActive={isDark}
-                    ref={themeButtonRef}
-                    onSwitch={switchTheme}
-                />
+                <MdeTooltip tip={<MdeText tKey={'sidebar.footer.theme-switch.tooltip'}/>}>
+                    <MdeToggleButton
+                        size={'small'}
+                        icon={<MdeIcon name={'moon'} size={'small'} fixedSize/>}
+                        activeIcon={<MdeIcon name={'sun'} size={'small'} fixedSize/>}
+                        isActive={isDark}
+                        ref={themeButtonRef}
+                        onSwitch={switchTheme}
+                    />
+                </MdeTooltip>
                 {/* TODO [SCHEME] Open the settings panel. */}
-                <MdeButton
-                    size={'small'}
-                    variant={'primary'}
-                    icon={<MdeIcon name={'settings'} size={'small'}/>}
-                />
+                <MdeTooltip tip={<MdeText tKey={'sidebar.footer.settings.tooltip'}/>}>
+                    <MdeButton
+                        size={'small'}
+                        variant={'primary'}
+                        icon={<MdeIcon name={'settings'} size={'small'}/>}
+                    />
+                </MdeTooltip>
             </footer>
         </aside>
     );

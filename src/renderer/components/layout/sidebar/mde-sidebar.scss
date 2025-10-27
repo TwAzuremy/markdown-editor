@@ -64,7 +64,8 @@
             margin-left: var(--padding-1);
         }
 
-        .mde-blank--flex ~ [class*="button"] {
+        .mde-blank--flex ~ [class*="button"],
+        .mde-blank--flex ~ [class*="tooltip"] {
             margin-left: var(--padding-2);
         }
     }
