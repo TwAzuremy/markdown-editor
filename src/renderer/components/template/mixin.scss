@@ -1,3 +1,6 @@
+@use 'sass:map';
+@use './function' as function;
+
 @mixin component-size {
     &__size {
         &--small {
@@ -25,4 +28,13 @@
     max-width: $width;
     min-height: $height;
     max-height: $height;
+}
+
+@mixin transform-center($axis, $transform-attributes: null, $is-center-other-axis: false) {
+    $data: map.get(function.$axis-center-map, $axis);
+
+    @if $is-center-other-axis {
+        #{map.get($data, position)}: 50%;
+    }
+    transform: translate#{map.get($data, translate)}(-50%) $transform-attributes;
 }

@@ -1,0 +1,33 @@
+@use 'sass:map';
+
+$reverse-direction-map: (
+        top: bottom,
+        bottom: top,
+        left: right,
+        right: left,
+);
+
+$axis-center-map: (
+        X: (position: top, translate: Y),
+        Y: (position: left, translate: X)
+);
+
+/**
+ * Gets the axis of a direction
+ *
+ * @param $direction - The direction to get axis from.
+ *
+ * @return - The axis of the direction
+ *
+ * @example
+ * $axis = axis(top); // Y
+ */
+@function axis($direction) {
+    @if $direction == "top" or $direction == "bottom" {
+        @return Y;
+    }
+
+    @if $direction == "left" or $direction == "right" {
+        @return X;
+    }
+}
