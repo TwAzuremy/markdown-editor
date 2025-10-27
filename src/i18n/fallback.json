@@ -5,5 +5,7 @@
     "title-bar.window-controller.unmaximize": "Restore",
     "title-bar.window-controller.close": "Close",
     "sidebar.tab.explorer": "Explorer",
-    "sidebar.tab.outline": "Outline"
+    "sidebar.tab.outline": "Outline",
+    "sidebar.footer.theme-switch.tooltip": "Theme Switch",
+    "sidebar.footer.settings.tooltip": "Settings"
 }
