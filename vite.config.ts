@@ -4,6 +4,8 @@ import electron from 'vite-plugin-electron/simple';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import svgr from "vite-plugin-svgr";
+import postcssPresetEnv from "postcss-preset-env";
+import cssnanoPlugin from "cssnano";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -43,6 +45,34 @@ export default defineConfig({
                 : {},
         }),
     ],
+    css: {
+        postcss: {
+            plugins: [
+                postcssPresetEnv({
+                    stage: 1,
+                    features: {
+                        // Disable CSS nesting syntax and variable control. Similar usage exists in Sass.
+                        'nesting-rules': false,
+                        'custom-properties': false
+                    },
+                    autoprefixer: {
+                        overrideBrowserslist: [
+                            'last 2 versions',
+                            '> 1%',
+                            'not dead',
+                            'Electron >= 20'
+                        ],
+                        grid: 'autoplace',
+                        flexbox: 'no-2009'
+                    }
+                }),
+                cssnanoPlugin({
+                    // Default compression strategy.
+                    preset: 'default'
+                })
+            ]
+        }
+    },
     resolve: {
         // Path Alias
         alias: {
