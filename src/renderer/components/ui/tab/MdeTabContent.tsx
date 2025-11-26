@@ -1,7 +1,6 @@
 import React, {
     ForwardedRef,
     forwardRef,
-    memo,
     ReactElement,
     useCallback,
     useEffect,
@@ -69,7 +68,7 @@ export type MdeTabContentRef = {
  *
  * @returns {ReactElement} The rendered tab content component.
  */
-const MdeTabContent: React.FC<MdeTabContentProps> = memo(forwardRef<MdeTabContentRef, MdeTabContentProps>((
+const MdeTabContent: React.FC<MdeTabContentProps> = forwardRef<MdeTabContentRef, MdeTabContentProps>((
     {
         containers,
         index = 0,
@@ -154,6 +153,6 @@ const MdeTabContent: React.FC<MdeTabContentProps> = memo(forwardRef<MdeTabConten
             ))}
         </div>
     );
-}));
+});
 
 export default MdeTabContent;

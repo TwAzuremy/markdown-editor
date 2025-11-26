@@ -1,4 +1,4 @@
-import React, {memo} from "react";
+import React from "react";
 import {useI18n} from "@renderer/hook/useI18n.ts";
 import {StringUtil} from "@utils/StringUtil.ts";
 
@@ -27,11 +27,14 @@ type MdeTextProps = {
  * Optionally, it can skip translation and display the raw `tKey` if the `noTranslate` prop is set to `true`.
  * This is useful for rendering keys as placeholders or static text.
  *
- * @param {string} tKey - The translation key to look up in the i18n context.
- * @param {boolean} [noTranslate=false] - Optional flag to prevent translation and render the key directly. Defaults to `false`.
- * @param {boolean} [canSelect=true] - Optional flag used to enable text selection. The default value is `true`.
+ * @param tKey - The translation key to look up in the i18n context.
+ * @param [noTranslate=false] - Optional flag to prevent translation and render the key directly. Defaults to `false`.
+ * @param [canSelect=true] - Optional flag used to enable text selection. The default value is `true`.
  *
- * @returns {JSX.Element} A `span` element containing either the translated text or the raw `tKey`.
+ * @param className
+ * @param props
+ *
+ * @returns A `span` element containing either the translated text or the raw `tKey`.
  *
  * @example
  * ```tsx
@@ -40,7 +43,7 @@ type MdeTextProps = {
  * ```
  */
 const MdeText: React.FC<MdeTextProps> =
-    memo(({tKey, noTranslate = false, canSelect = true, className, ...props}) => {
+    ({tKey, noTranslate = false, canSelect = true, className, ...props}) => {
         const {t} = useI18n();
         const text = noTranslate ? tKey : t(tKey);
 
@@ -53,6 +56,6 @@ const MdeText: React.FC<MdeTextProps> =
                 {text}
             </span>
         );
-    });
+    };
 
 export default MdeText;

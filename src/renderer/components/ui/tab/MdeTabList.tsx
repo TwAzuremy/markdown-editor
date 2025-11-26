@@ -1,4 +1,4 @@
-import React, {forwardRef, memo, ReactElement, useEffect, useState} from "react";
+import React, {forwardRef, ReactElement, useState} from "react";
 import {MdeTabDirection} from "./MdeTab.tsx";
 
 import './mde-tab-list.scss';
@@ -32,7 +32,7 @@ type MdeTabListProps = {
  * @returns {ReactElement} The rendered tab list component.
  */
 const MdeTabList: React.FC<MdeTabListProps> =
-    memo(forwardRef<HTMLDivElement, MdeTabListProps>((
+    forwardRef<HTMLDivElement, MdeTabListProps>((
         {
             tabs,
             index = 0,
@@ -73,6 +73,6 @@ const MdeTabList: React.FC<MdeTabListProps> =
                 ))}
             </div>
         );
-    }));
+    });
 
 export default MdeTabList;

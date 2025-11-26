@@ -2,8 +2,9 @@ import React, {
     Children,
     ForwardedRef,
     forwardRef,
-    memo,
-    ReactElement, useCallback, useEffect,
+    ReactElement,
+    useCallback,
+    useEffect,
     useMemo,
     useRef, useState
 } from "react";
@@ -44,7 +45,7 @@ type MdeTabProps = {
  *
  * @returns {ReactElement} The rendered tab component.
  */
-const MdeTab = memo(forwardRef<HTMLDivElement, MdeTabProps>((
+const MdeTab = forwardRef<HTMLDivElement, MdeTabProps>((
     {
         direction = 'horizontal',
         index = 0,
@@ -127,6 +128,6 @@ const MdeTab = memo(forwardRef<HTMLDivElement, MdeTabProps>((
             />
         </div>
     );
-}));
+});
 
 export default MdeTab;

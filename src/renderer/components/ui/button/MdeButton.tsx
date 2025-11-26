@@ -1,4 +1,4 @@
-import React, {ForwardedRef, forwardRef, memo} from "react";
+import React, {ForwardedRef, forwardRef} from "react";
 import {componentSize} from "@/types/component.ts";
 import {StringUtil} from "@utils/StringUtil.ts";
 
@@ -84,7 +84,7 @@ type MdeButtonProps = {
  * />
  */
 const MdeButton: React.FC<MdeButtonProps> =
-    memo(forwardRef<HTMLButtonElement, MdeButtonProps>((
+    forwardRef<HTMLButtonElement, MdeButtonProps>((
         {
             size = 'medium',
             variant = 'transparent',
@@ -134,6 +134,6 @@ const MdeButton: React.FC<MdeButtonProps> =
                 {render()}
             </button>
         );
-    }));
+    });
 
 export default MdeButton;

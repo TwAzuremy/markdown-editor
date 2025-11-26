@@ -45,13 +45,17 @@ type MdeTooltipProps = {
  * Displays a tooltip with content specified via the `tip` prop, positioned relative to its target element.
  * The tooltip position can be customized via the `position` prop.
  *
- * @param {string | React.ReactElement} tip - The content of the tooltip. This can be a string or a React element.
- * @param {MdeTooltipPosition} [position="top"] - The position of the tooltip relative to the target element.
+ * @param tip - The content of the tooltip. This can be a string or a React element.
+ * @param [position="top"] - The position of the tooltip relative to the target element.
  * Can be 'top', 'bottom', 'left', or 'right'. Defaults to 'top'.
  *
- * @returns {JSX.Element} The rendered tooltip component.
+ * @param className
+ * @param children
+ * @param props
+ *
+ * @returns The rendered tooltip component.
  */
-const MdeTooltip: React.FC<MdeTooltipProps> = memo((
+const MdeTooltip: React.FC<MdeTooltipProps> = (
     {
         tip,
         position = 'top',
@@ -72,6 +76,6 @@ const MdeTooltip: React.FC<MdeTooltipProps> = memo((
             <p className={"mde-tooltip__text"}>{tip}</p>
         </div>
     );
-});
+};
 
 export default MdeTooltip;
