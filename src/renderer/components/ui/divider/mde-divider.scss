@@ -1,0 +1,43 @@
+.mde-divider {
+    --divider-width: 1px;
+    --divider-margin: 8px;
+    --divider-padding: 8px;
+
+    border: none;
+    background: transparent;
+
+    display: flex;
+    justify-content: center;
+
+    &::after {
+        content: "";
+        height: var(--divider-width);
+    }
+
+    &.mde-divider__contrast--default::after {
+        background: var(--theme-color-divider);
+    }
+
+    &.mde-divider__contrast--strong::after {
+        background: var(--theme-color-divider-strong);
+    }
+
+    &.mde-divider__direction--horizontal {
+        padding: var(--divider-margin) 0;
+        flex-direction: row;
+
+        &::after {
+            width: calc(100% - var(--divider-padding) * 2);
+        }
+    }
+
+    // TODO [TEST] Vertical styles have not been tested.
+    &.mde-divider__direction--vertical {
+        padding: 0 var(--divider-margin);
+        flex-direction: column;
+
+        &::after {
+            height: calc(100% - var(--divider-padding) * 2);
+        }
+    }
+}

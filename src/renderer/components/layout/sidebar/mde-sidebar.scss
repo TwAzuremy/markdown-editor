@@ -10,6 +10,11 @@
         border-radius: 0 24px 24px 0;
         background: var(--theme-bg-component);
         box-shadow: 4px 0 8px 0 var(--theme-color-shadow);
+
+        > .mde-divider {
+            --divider-padding: var(--padding-3);
+            margin-bottom: var(--padding-1);
+        }
     }
 
     &__logo {
@@ -50,6 +55,7 @@
         align-items: center;
 
         padding: var(--padding-3);
+        padding-top: 0;
 
         & > .mde-icon,
         & > .mde-text {

@@ -12,6 +12,7 @@ import MdeFlexBlank from "@ui/blank/MdeFlexBlank.tsx";
 import MdeButton from "@ui/button/MdeButton.tsx";
 import MdeTab from "@ui/tab/MdeTab.tsx";
 import MdeTooltip from "@ui/tooltip/MdeTooltip.tsx";
+import MdeDivider from "@ui/divider/MdeDivider.tsx";
 
 import './mde-sidebar.scss';
 
@@ -133,6 +134,7 @@ function MdeSidebar(): ReactElement<HTMLElement> {
                     <div>Look forward to it...</div>
                 </MdeTab>
             </main>
+            <MdeDivider />
             <footer className={"sidebar__footer"}>
                 <MdeIcon name={'version'} size={'small'} className={'mde-icon__version'}/>
                 {/* TODO [FEATURES] Click to go to GitHub. */}
