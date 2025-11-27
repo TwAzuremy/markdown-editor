@@ -23,4 +23,15 @@ module.exports = {
         'semi': ['error', 'always'],
         '@typescript-eslint/indent': 'off'
     },
+    overrides: [
+        // Turn off type checking for any in decorators.
+        {
+            files: [
+                'src/decorators/**/*.decorator.ts'
+            ],
+            rules: {
+                '@typescript-eslint/no-explicit-any': 'off'
+            }
+        }
+    ]
 }

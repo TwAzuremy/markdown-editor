@@ -21,6 +21,9 @@
         "noUnusedLocals": false,
         "noUnusedParameters": false,
         "noFallthroughCasesInSwitch": true,
+        /* Decorator */
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
         /* Path Alias */
         "baseUrl": ".",
         "paths": {
