@@ -1,6 +1,6 @@
 import {ipcRenderer, contextBridge} from 'electron';
 import {LOG_MODULE_NAME} from "../constants/log.enum.ts";
-import {LOGGER_CHANNELS} from "../ipc/channels/logger.ts";
+import {IPC_CHANNELS} from "../constants/ipc.enum.ts";
 
 // --------- Expose some API to the Renderer process ---------
 contextBridge.exposeInMainWorld('ipcRenderer', {
@@ -45,22 +45,22 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
 contextBridge.exposeInMainWorld('logger', {
     info(...args: Parameters<LoggerHandler>) {
         const [module, ...omit] = args;
-        ipcRenderer.send(LOGGER_CHANNELS.INFO, module || LOG_MODULE_NAME.RENDERER, ...omit);
+        ipcRenderer.send(IPC_CHANNELS.LOGGER.INFO, module || LOG_MODULE_NAME.RENDERER, ...omit);
     },
     warn(...args: Parameters<LoggerHandler>) {
         const [module, ...omit] = args;
-        ipcRenderer.send(LOGGER_CHANNELS.WARN, module || LOG_MODULE_NAME.RENDERER, ...omit);
+        ipcRenderer.send(IPC_CHANNELS.LOGGER.WARN, module || LOG_MODULE_NAME.RENDERER, ...omit);
     },
     error(...args: Parameters<LoggerHandler>) {
         const [module, ...omit] = args;
-        ipcRenderer.send(LOGGER_CHANNELS.ERROR, module || LOG_MODULE_NAME.RENDERER, ...omit);
+        ipcRenderer.send(IPC_CHANNELS.LOGGER.ERROR, module || LOG_MODULE_NAME.RENDERER, ...omit);
     },
     debug(...args: Parameters<LoggerHandler>) {
         const [module, ...omit] = args;
-        ipcRenderer.send(LOGGER_CHANNELS.DEBUG, module || LOG_MODULE_NAME.RENDERER, ...omit);
+        ipcRenderer.send(IPC_CHANNELS.LOGGER.DEBUG, module || LOG_MODULE_NAME.RENDERER, ...omit);
     },
     verbose(...args: Parameters<LoggerHandler>) {
         const [module, ...omit] = args;
-        ipcRenderer.send(LOGGER_CHANNELS.VERBOSE, module || LOG_MODULE_NAME.RENDERER, ...omit);
+        ipcRenderer.send(IPC_CHANNELS.LOGGER.VERBOSE, module || LOG_MODULE_NAME.RENDERER, ...omit);
     },
 });

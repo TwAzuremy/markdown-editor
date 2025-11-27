@@ -1,4 +1,4 @@
-import {STORE_CHANNELS} from "@/ipc/channels/store.ts";
+import {IPC_CHANNELS} from "@/constants/ipc.enum.ts";
 
 /**
  * Utility class for interacting with a data store through IPC (Inter-Process Communication).
@@ -13,7 +13,7 @@ export class StoreUtil {
      * @returns A promise that resolves to the value associated with the given key, or the default value if not found.
      */
     public static async get(key: string, defaultValue?: unknown): Promise<unknown> {
-        return await window.ipcRenderer.fetch(STORE_CHANNELS.GET, key, defaultValue);
+        return await window.ipcRenderer.fetch(IPC_CHANNELS.STORE.GET, key, defaultValue);
     }
 
     /**
@@ -23,7 +23,7 @@ export class StoreUtil {
      * @param value - The value to be stored.
      */
     public static set(key: string, value: unknown): void {
-        window.ipcRenderer.execute(STORE_CHANNELS.SET, key, value);
+        window.ipcRenderer.execute(IPC_CHANNELS.STORE.SET, key, value);
     }
 
     /**
@@ -33,13 +33,13 @@ export class StoreUtil {
      */
     public static delete(key: string): void {
         // noinspection JSIgnoredPromiseFromCall
-        window.ipcRenderer.execute(STORE_CHANNELS.DELETE, key);
+        window.ipcRenderer.execute(IPC_CHANNELS.STORE.DELETE, key);
     }
 
     /**
      * Resets the entire store, clearing all stored values.
      */
     public static reset(): void {
-        window.ipcRenderer.command(STORE_CHANNELS.RESET);
+        window.ipcRenderer.command(IPC_CHANNELS.STORE.RESET);
     }
 }

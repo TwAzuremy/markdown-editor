@@ -11,18 +11,16 @@ import {LOG_MODULE_NAME} from "../constants/log.enum.ts";
 import {LogUtil} from "../utils/LogUtil.ts";
 import {getStoreManager, StoreManager} from "../store/StoreManager.ts";
 import {STORE_KEY} from "../constants/config.enum.ts";
+import {unregisterAllIpcHandlers} from "../decorators/ipc.decorator.ts";
 
-// Ipc Manager
-import {IpcManager} from "../ipc/IpcManager.ts";
-import {WINDOW_CHANNELS} from "../ipc/channels/window.ts";
-import {WindowHandlers} from "../ipc/handlers/window.ts";
-import {WindowRegistry} from "../ipc/registries/window.ts";
-import {ResourceHandlers} from "../ipc/handlers/resource.ts";
-import {ResourceRegistry} from "../ipc/registries/resource.ts";
-import {LoggerHandlers} from "../ipc/handlers/logger.ts";
-import {LoggerRegistry} from "../ipc/registries/logger.ts";
-import {StoreHandlers} from "../ipc/handlers/store.ts";
-import {StoreRegistry} from "../ipc/registries/store.ts";
+// Ipc Channels
+import {IPC_CHANNELS} from "../constants/ipc.enum.ts";
+
+// IPC Services
+import {WindowHandlers} from "../services/window.service.ts";
+import {ResourceHandlers} from "../services/resource.service.ts";
+import {LoggerHandlers} from "../services/logger.service.ts";
+import {StoreHandlers} from "../services/store.service.ts";
 
 const require = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -59,8 +57,6 @@ const storeManager: StoreManager = getStoreManager();
 // Initialize Logger Manager
 const loggerManager: LoggerManager = initLoggerManager();
 const logger = new LogUtil(LOG_MODULE_NAME.MAIN);
-
-const ipcManager: IpcManager = new IpcManager();
 
 function createWindow() {
     // Initialize configuration logging
@@ -113,8 +109,8 @@ function createWindow() {
 
 function windowListeners(win: BrowserWindow) {
     // Listen for changes in the window's maximized state.
-    win.on('maximize', () => win.webContents.send(WINDOW_CHANNELS.ON_MAXIMIZE, true));
-    win.on('unmaximize', () => win.webContents.send(WINDOW_CHANNELS.ON_MAXIMIZE, false));
+    win.on('maximize', () => win.webContents.send(IPC_CHANNELS.WINDOW.ON_MAXIMIZE, true));
+    win.on('unmaximize', () => win.webContents.send(IPC_CHANNELS.WINDOW.ON_MAXIMIZE, false));
 
     // Save the window boundaries and state when the window is closed.
     win.on('close', () => {
@@ -137,25 +133,10 @@ function windowListeners(win: BrowserWindow) {
  * to the IPC manager, and registers all IPCs.
  */
 function initializeIpc() {
-    // Create a handler instance
-    const windowHandlers = new WindowHandlers(win);
-    const resourceHandlers = new ResourceHandlers();
-    const loggerHandlers = new LoggerHandlers();
-    const storeHandlers = new StoreHandlers();
-    // Create a registrar
-    const windowRegistry = new WindowRegistry(windowHandlers);
-    const resourceRegistry = new ResourceRegistry(resourceHandlers);
-    const loggerRegistry = new LoggerRegistry(loggerHandlers);
-    const storeRegistry = new StoreRegistry(storeHandlers);
-
-    // Add to manager
-    ipcManager.addRegistry(windowRegistry);
-    ipcManager.addRegistry(resourceRegistry);
-    ipcManager.addRegistry(loggerRegistry);
-    ipcManager.addRegistry(storeRegistry);
-
-    // Register all IPC
-    ipcManager.registerAll();
+    new WindowHandlers(win);
+    new ResourceHandlers(resourceManager);
+    new LoggerHandlers();
+    new StoreHandlers(storeManager);
 }
 
 /**
@@ -184,7 +165,7 @@ app.on('window-all-closed', () => {
 
         logger.info('Quitting application...');
         // Clean up IPC before the application exits.
-        ipcManager.unregisterAll();
+        unregisterAllIpcHandlers();
 
         app.quit();
     }

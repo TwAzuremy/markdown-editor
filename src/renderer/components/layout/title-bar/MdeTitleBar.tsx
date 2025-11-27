@@ -1,7 +1,7 @@
 import MdeButton from "@ui/button/MdeButton.tsx";
 import MdeIcon from "@ui/icon/MdeIcon.tsx";
 import {ReactElement, useEffect, useRef, useState} from "react";
-import {WINDOW_CHANNELS} from "@/ipc/channels/window.ts";
+import {IPC_CHANNELS} from "@/constants/ipc.enum.ts";
 import {useI18n} from "@renderer/hook/useI18n.ts";
 
 import "./mde-title-bar.scss";
@@ -41,7 +41,7 @@ function MdeTitleBar(): ReactElement<HTMLElement> {
      * false otherwise.
      */
     async function checkMaximized(): Promise<boolean> {
-        const data = await window.ipcRenderer.query(WINDOW_CHANNELS.GET_STATE) as { isMaximized: boolean; };
+        const data = await window.ipcRenderer.query(IPC_CHANNELS.WINDOW.GET_STATE) as { isMaximized: boolean; };
 
         return data.isMaximized || false;
     }
@@ -50,26 +50,26 @@ function MdeTitleBar(): ReactElement<HTMLElement> {
      * Minimizes the window by sending a command to the renderer process.
      */
     function windowMinimize(): void {
-        window.ipcRenderer.command(WINDOW_CHANNELS.MINIMIZE);
+        window.ipcRenderer.command(IPC_CHANNELS.WINDOW.MINIMIZE);
     }
 
     /**
      * Maximizes the window by sending a command to the renderer process.
      */
     function windowMaximize(): void {
-        window.ipcRenderer.command(WINDOW_CHANNELS.MAXIMIZE);
+        window.ipcRenderer.command(IPC_CHANNELS.WINDOW.MAXIMIZE);
     }
 
     /**
      * Closes the window by sending a command to the renderer process.
      */
     function windowClose(): void {
-        window.ipcRenderer.command(WINDOW_CHANNELS.CLOSE);
+        window.ipcRenderer.command(IPC_CHANNELS.WINDOW.CLOSE);
     }
 
     useEffect(() => {
         // Listen for window maximize state change events.
-        window.ipcRenderer.on(WINDOW_CHANNELS.ON_MAXIMIZE,
+        window.ipcRenderer.on(IPC_CHANNELS.WINDOW.ON_MAXIMIZE,
             (_, isMaximized: boolean) => morph(isMaximized));
 
         // Check and set the initial window maximized state.
@@ -80,7 +80,7 @@ function MdeTitleBar(): ReactElement<HTMLElement> {
 
         return () => {
             // Cleanup the event listener when the component is unmounted.
-            window.ipcRenderer.off(WINDOW_CHANNELS.ON_MAXIMIZE,
+            window.ipcRenderer.off(IPC_CHANNELS.WINDOW.ON_MAXIMIZE,
                 (_, isMaximized: boolean) => morph(isMaximized));
         };
     }, []);

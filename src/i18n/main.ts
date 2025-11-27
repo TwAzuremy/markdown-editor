@@ -1,5 +1,5 @@
 import {I18nInstance, TranslationResource} from "@/types/language.ts";
-import {RESOURCE_CHANNELS} from "@/ipc/channels/resource.ts";
+import {IPC_CHANNELS} from "@/constants/ipc.enum.ts";
 import {RESOURCE_NAME} from "@/constants/resources.enum.ts";
 import {EventEmitter} from "@/events/EventEmitter.ts";
 import {EVENT_NAME} from "@/constants/events.enum.ts";
@@ -98,7 +98,7 @@ class I18n extends EventEmitter implements I18nInstance {
 
         try {
             const translation = await window.ipcRenderer.fetch(
-                RESOURCE_CHANNELS.READ_JSON, RESOURCE_NAME.LOCALES, `${language}.json`
+                IPC_CHANNELS.RESOURCE.READ_JSON, RESOURCE_NAME.LOCALES, `${language}.json`
             );
 
             if (translation) {
