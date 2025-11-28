@@ -1,7 +1,7 @@
 import {promises as fs} from 'fs';
 import path from "node:path";
 import {JsonBinaryReader} from "./JsonBinaryReader.ts";
-import {LanguageMap} from "@/types/language.ts";
+import {LanguageMap} from "@/types/language.type.ts";
 
 /**
  * Reads all JSON files in the specified directory and extracts the display name associated with 'display.name' key.

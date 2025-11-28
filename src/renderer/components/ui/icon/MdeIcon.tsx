@@ -10,7 +10,7 @@ import React, {
     useCallback
 } from "react";
 import {StringUtil} from "@utils/StringUtil.ts";
-import {componentSize} from "@/types/component.ts";
+import {componentSize} from "@/types/component.type.ts";
 
 import "./mde-icon.scss";
 

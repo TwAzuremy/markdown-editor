@@ -7,7 +7,7 @@ This project uses the decorator pattern to implement an automatic registration m
 ## Core Document Description
 
 - `ipc.decorator.ts` - IPC Decorator Implementation
-- `ipc.ts` - IPC Type Definition
+- `ipc.type.ts` - IPC Type Definition
 - `.service.ts` - IPC Service Class Example
 
 ## Registration Process

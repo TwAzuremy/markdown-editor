@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import {app, App} from 'electron';
 import * as process from "node:process";
-import {ResourceConfig} from "../types/resource.ts";
+import {ResourceConfig} from "../types/resource.type.ts";
 import {Logger} from "../logger/Logger.ts";
 import {LOG_MODULE_NAME} from "../constants/log.enum.ts";
 

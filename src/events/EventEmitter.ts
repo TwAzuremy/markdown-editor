@@ -1,4 +1,4 @@
-import {EventCallback} from "@/types/event.ts";
+import {EventCallback} from "@/types/event.type.ts";
 
 /**
  * EventEmitter is a class that allows subscribing to, unsubscribing from, and emitting events.

@@ -1,4 +1,4 @@
-import {EventEmitter} from "./event.ts";
+import {EventEmitter} from "./event.type.ts";
 
 /**
  * Represents a map of language codes to their respective language names or identifiers.

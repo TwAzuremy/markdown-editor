@@ -1,4 +1,4 @@
-import {I18nInstance, TranslationResource} from "@/types/language.ts";
+import {I18nInstance, TranslationResource} from "@/types/language.type.ts";
 import {IPC_CHANNELS} from "@/constants/ipc.enum.ts";
 import {RESOURCE_NAME} from "@/constants/resources.enum.ts";
 import {EventEmitter} from "@/events/EventEmitter.ts";

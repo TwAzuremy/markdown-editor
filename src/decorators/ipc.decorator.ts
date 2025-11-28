@@ -2,7 +2,7 @@
 
 import {ipcMain} from "electron";
 import 'reflect-metadata';
-import {IpcConfig, IpcHandler, IpcHandlerMetadata, IpcInvokeHandler} from "../types/ipc.ts";
+import {IpcConfig, IpcHandler, IpcHandlerMetadata, IpcInvokeHandler} from "../types/ipc.type.ts";
 import {IPC_HANDLERS_METADATA_KEY, IPC_MAIN_OPERATION} from "../constants/ipc.enum.ts";
 import {LOG_MODULE_NAME} from "../constants/log.enum.ts";
 import {Logger} from "../logger/Logger.ts";

@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useState} from "react";
-import {I18nInstance} from "@/types/language.ts";
+import {I18nInstance} from "@/types/language.type.ts";
 import {getI18n} from "@/i18n/main.ts";
 import {EVENT_NAME} from "@/constants/events.enum.ts";
 import {Logger} from "@/logger/Logger.ts";

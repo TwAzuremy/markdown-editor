@@ -1,7 +1,7 @@
 import {IpcHandle, RegisterIpcHandlers} from "../decorators/ipc.decorator.ts";
 import type {IpcMainEvent} from 'electron';
 import {ResourceManager} from "../managers/ResourceManager.ts";
-import {LanguageMap} from "../types/language.ts";
+import {LanguageMap} from "../types/language.type.ts";
 import {getLanguageMap} from "../utils/LanguageUtils.ts";
 import {RESOURCE_NAME} from "../constants/resources.enum.ts";
 import {IPC_CHANNELS} from "../constants/ipc.enum.ts";

@@ -1,5 +1,5 @@
 import React, {ForwardedRef, forwardRef} from "react";
-import {componentSize} from "@/types/component.ts";
+import {componentSize} from "@/types/component.type.ts";
 import {StringUtil} from "@utils/StringUtil.ts";
 
 import "./mde-button.scss";
