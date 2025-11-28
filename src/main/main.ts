@@ -4,7 +4,7 @@ import {fileURLToPath} from 'node:url';
 import * as process from "node:process";
 import path from 'node:path';
 
-import {ResourceManager, initResourceManager} from "../managers/ResourceManager.ts";
+import {ResourceManager} from "../managers/ResourceManager.ts";
 import {initLoggerManager, LoggerManager} from "../managers/LoggerManager.ts";
 import {RESOURCE_NAME} from "../constants/resources.enum.ts";
 import {LOG_MODULE_NAME} from "../constants/log.enum.ts";
@@ -46,7 +46,7 @@ process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, 
 let win: BrowserWindow;
 
 // Initialize Resource Manager
-const resourceManager: ResourceManager = initResourceManager({
+const resourceManager: ResourceManager = ResourceManager.initialize(app, {
     locales: RESOURCE_NAME.LOCALES,
     logs: RESOURCE_NAME.LOGS,
     config: RESOURCE_NAME.CONFIG,

@@ -3,11 +3,11 @@ import fs from 'fs';
 import {app, App} from 'electron';
 import * as process from "node:process";
 import {ResourceConfig} from "../types/resource.ts";
-import FileUtil from "../utils/FileUtil.ts";
 
 export class ResourceManager {
-    private readonly isPackaged: boolean;
+    private static instance: ResourceManager;
     private app: App;
+    private readonly isPackaged: boolean;
     private readonly resourceConfig: ResourceConfig;
 
     constructor(appInstance: App, config: ResourceConfig = {}) {
@@ -18,8 +18,23 @@ export class ResourceManager {
         };
 
         // Automatically create resource folder.
-        // noinspection JSIgnoredPromiseFromCall
-        this.ensureResourceDirs();
+        this.ensureResourceDirsSync();
+    }
+
+    public static initialize(appInstance: App = app, config?: ResourceConfig): ResourceManager {
+        if (!ResourceManager.instance) {
+            ResourceManager.instance = new ResourceManager(appInstance, config);
+        }
+
+        return ResourceManager.instance;
+    }
+
+    public static getInstance(): ResourceManager {
+        if (!ResourceManager.instance) {
+            throw new Error('ResourceManager not initialized. Call initialize() first.');
+        }
+
+        return ResourceManager.instance;
     }
 
     /**
@@ -33,15 +48,16 @@ export class ResourceManager {
         return this.isPackaged ? process.resourcesPath! : this.app.getAppPath();
     }
 
-    /**
-     * Ensure all resource directories exist by creating them if necessary
-     */
-    public async ensureResourceDirs(): Promise<void> {
+    public ensureResourceDirsSync(): void {
         const resourceNames = Object.keys(this.resourceConfig);
 
-        await Promise.all(resourceNames.map(name =>
-            FileUtil.checkFolderExists(this.getResourcePath(name), true)
-        ));
+        for (const name of resourceNames) {
+            const resourcePath = this.getResourcePath(name);
+
+            if (!fs.existsSync(resourcePath)) {
+                fs.mkdirSync(resourcePath, {recursive: true});
+            }
+        }
     }
 
     /**
@@ -137,32 +153,6 @@ export class ResourceManager {
             return null;
         }
     }
-}
-
-let resourceManager: ResourceManager | null = null;
-
-/**
- * Initialize Resource Manager
- *
- * @param config Resource configuration
- */
-export function initResourceManager(config?: ResourceConfig): ResourceManager {
-    if (!resourceManager) {
-        resourceManager = new ResourceManager(app, config);
-    }
-
-    return resourceManager;
-}
-
-/**
- * Get an instance of the Resource Manager
- */
-export function getResourceManager(): ResourceManager {
-    if (!resourceManager) {
-        throw new Error('ResourceManager not init. Call initResourceManager first');
-    }
-
-    return resourceManager;
 }
 
 export default ResourceManager;

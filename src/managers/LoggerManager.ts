@@ -1,5 +1,5 @@
 import path from "node:path";
-import {getResourceManager} from "./ResourceManager.ts";
+import ResourceManager from "./ResourceManager.ts";
 import {RESOURCE_NAME} from "../constants/resources.enum.ts";
 import fs from "fs";
 import log from "electron-log";
@@ -12,7 +12,7 @@ import {app} from "electron";
  * The logs are stored in a log file, and the log format follows a specific timestamped pattern.
  */
 export class LoggerManager {
-    private readonly resourceManager = getResourceManager();
+    private readonly resourceManager = ResourceManager.getInstance();
     private readonly logPath: string;
 
     constructor() {
