@@ -204,7 +204,7 @@ export function unregisterAllIpcHandlers(): void {
                     break;
 
                 default:
-                    console.warn(`Unknown IPC operation: ${operation} for channel: ${channel}`);
+                    logger.warn(`Unknown IPC operation: ${operation} for channel: ${channel}`);
             }
 
             logger.debug(`IPC channel '${channel}' has been unregistered.`);
