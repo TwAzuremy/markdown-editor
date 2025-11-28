@@ -1,8 +1,8 @@
 import Store from 'electron-store';
-import {StoreSchema, WindowBounds} from "../types/config.ts";
-import ResourceManager from "./ResourceManager.ts";
+import {ConfigSchema, WindowBounds} from "../types/config.ts";
+import {ResourceManager} from "./ResourceManager.ts";
 import {RESOURCE_NAME} from "../constants/resources.enum.ts";
-import {STORE_KEY} from "../constants/config.enum.ts";
+import {CONFIG_KEY} from "../constants/config.enum.ts";
 
 // Default configuration
 import CONFIG_DEFAULT from './config.default.json';
@@ -13,26 +13,59 @@ import CONFIG_DEFAULT from './config.default.json';
  * It uses Electron's Store module to persist configuration data and allows for retrieving, setting, and deleting configurations.
  * It also manages the default configuration values from a JSON file.
  */
-export class StoreManager {
-    private readonly store: Store<StoreSchema>;
-    private readonly storePath: string;
+export class ConfigManager {
+    private static instance: ConfigManager;
+
+    private readonly store: Store<ConfigSchema>;
+    private readonly configPath: string;
 
     private readonly resourceManager: ResourceManager = ResourceManager.getInstance();
 
     /**
-     * Creates an instance of the StoreManager.
+     * Creates an instance of the ConfigManager.
      *
      * Initializes the store with a path and default configuration, and watches for changes in the config file.
      */
     constructor() {
-        this.storePath = this.resourceManager.getResourcePath(RESOURCE_NAME.CONFIG);
-        this.store = new Store<StoreSchema>({
-            cwd: this.storePath,
+        this.configPath = this.resourceManager.getResourcePath(RESOURCE_NAME.CONFIG);
+        this.store = new Store<ConfigSchema>({
+            cwd: this.configPath,
             name: 'config',
             defaults: CONFIG_DEFAULT || {},
             clearInvalidConfig: true,
             watch: true
         });
+    }
+
+    /**
+     * Initializes the ConfigManager as a singleton.
+     *
+     * If the instance does not already exist, it will be created.
+     *
+     * @returns The singleton instance of ConfigManager.
+     */
+    public static initialize(): ConfigManager {
+        if (!ConfigManager.instance) {
+            ConfigManager.instance = new ConfigManager();
+        }
+
+        return ConfigManager.instance;
+    }
+
+    /**
+     * Returns the singleton instance of ConfigManager.
+     *
+     * If the instance has not been initialized, throws an error.
+     *
+     * @returns The singleton instance of ConfigManager.
+     * @throws {Error} If ConfigManager has not been initialized.
+     */
+    public static getInstance(): ConfigManager {
+        if (!ConfigManager.instance) {
+            throw new Error('ConfigManager not initialized. Call initialize() first.');
+        }
+
+        return ConfigManager.instance;
     }
 
     /**
@@ -137,7 +170,7 @@ export class StoreManager {
      * @param bounds - The window bounds object containing width, height, x, and y coordinates.
      */
     public setWindowBounds(bounds: WindowBounds): void {
-        this.store.set(STORE_KEY.WINDOW_BOUNDS, bounds);
+        this.store.set(CONFIG_KEY.WINDOW_BOUNDS, bounds);
     }
 
     /**
@@ -146,23 +179,6 @@ export class StoreManager {
      * @returns The window bounds object with width, height, x, and y coordinates.
      */
     public getWindowBounds(): WindowBounds {
-        return this.get(STORE_KEY.WINDOW_BOUNDS) as WindowBounds;
+        return this.get(CONFIG_KEY.WINDOW_BOUNDS) as WindowBounds;
     }
-}
-
-/**
- * Returns the singleton instance of the StoreManager.
- *
- * If the instance has not been created yet, it initializes a new one.
- *
- * @returns The singleton instance of StoreManager.
- */
-let storeManager: StoreManager;
-
-export function getStoreManager(): StoreManager {
-    if (!storeManager) {
-        storeManager = new StoreManager();
-    }
-
-    return storeManager;
 }

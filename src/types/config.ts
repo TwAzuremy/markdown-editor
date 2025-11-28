@@ -3,9 +3,9 @@
  *
  * This interface can be used for flexible data storage where the structure is not predefined and can vary.
  *
- * @interface StoreSchema
+ * @interface ConfigSchema
  */
-export interface StoreSchema {
+export interface ConfigSchema {
     [key: string]: unknown;
 }
 

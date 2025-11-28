@@ -10,8 +10,8 @@ import {ResourceManager} from "../managers/ResourceManager.ts";
 import {RESOURCE_NAME} from "../constants/resources.enum.ts";
 import {Logger} from "../logger/Logger.ts";
 import {LOG_MODULE_NAME} from "../constants/log.enum.ts";
-import {getStoreManager, StoreManager} from "../managers/StoreManager.ts";
-import {STORE_KEY} from "../constants/config.enum.ts";
+import {ConfigManager} from "../managers/ConfigManager.ts";
+import {CONFIG_KEY} from "../constants/config.enum.ts";
 import {unregisterAllIpcHandlers} from "../decorators/ipc.decorator.ts";
 
 // Ipc Channels
@@ -21,7 +21,7 @@ import {IPC_CHANNELS} from "../constants/ipc.enum.ts";
 import {WindowHandlers} from "../services/window.service.ts";
 import {ResourceHandlers} from "../services/resource.service.ts";
 import {LoggerHandlers} from "../services/logger.service.ts";
-import {StoreHandlers} from "../services/store.service.ts";
+import {ConfigHandlers} from "../services/config.service.ts";
 
 const require = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -58,16 +58,17 @@ initializeLoggerConfiguration(
     path.join(resourceManager.getResourcePath(RESOURCE_NAME.LOGS), 'latest.log')
 );
 
-const storeManager: StoreManager = getStoreManager();
-
 // Initialize Logger Manager
 const logger = new Logger(LOG_MODULE_NAME.MAIN);
+
+// Initialize Configuration
+const configManager: ConfigManager = ConfigManager.initialize();
 
 function createWindow() {
     logger.info('App is starting...');
 
-    const windowBounds = storeManager.getWindowBounds();
-    const windowIsMaximized = storeManager.get(STORE_KEY.WINDOW_MAXIMIZE, false);
+    const windowBounds = configManager.getWindowBounds();
+    const windowIsMaximized = configManager.get(CONFIG_KEY.WINDOW_MAXIMIZE, false);
 
     win = new BrowserWindow({
         width: windowBounds?.width,
@@ -124,7 +125,7 @@ function windowListeners(win: BrowserWindow) {
             saveWindowBounds();
         }
 
-        storeManager.set(STORE_KEY.WINDOW_MAXIMIZE, isMaximized);
+        configManager.set(CONFIG_KEY.WINDOW_MAXIMIZE, isMaximized);
     });
 }
 
@@ -139,7 +140,7 @@ function initializeIpc() {
     new WindowHandlers(win);
     new ResourceHandlers(resourceManager);
     new LoggerHandlers();
-    new StoreHandlers(storeManager);
+    new ConfigHandlers(configManager);
 }
 
 function initializeLoggerConfiguration(logPath: string) {
@@ -168,7 +169,7 @@ function saveWindowBounds(): void {
         // Get the bounds of the main window
         const bounds = win.getBounds();
 
-        storeManager.setWindowBounds(bounds);
+        configManager.setWindowBounds(bounds);
         logger.info(`Save window bounds: `, bounds);
     }
 }

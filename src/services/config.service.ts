@@ -1,6 +1,6 @@
 import {IpcHandle, IpcOn, RegisterIpcHandlers} from "../decorators/ipc.decorator.ts";
 import type { IpcMainEvent } from 'electron';
-import {StoreManager} from "../managers/StoreManager.ts";
+import {ConfigManager} from "../managers/ConfigManager.ts";
 import {IPC_CHANNELS} from "../constants/ipc.enum.ts";
 
 /**
@@ -13,14 +13,14 @@ import {IPC_CHANNELS} from "../constants/ipc.enum.ts";
  * all IPC handlers when instantiated.
  */
 @RegisterIpcHandlers
-export class StoreHandlers {
+export class ConfigHandlers {
     /**
-     * Creates an instance of the StoreHandlers class.
+     * Creates an instance of the ConfigHandlers class.
      *
-     * @param storeManager - An instance of StoreManager that manages the actual store operations.
+     * @param configManager - An instance of ConfigManager that manages the actual store operations.
      */
-    constructor(private storeManager: StoreManager) {
-        this.storeManager = storeManager;
+    constructor(private configManager: ConfigManager) {
+        this.configManager = configManager;
     }
 
     /**
@@ -38,7 +38,7 @@ export class StoreHandlers {
      */
     @IpcHandle(IPC_CHANNELS.STORE.GET)
     public getHandler(_: IpcMainEvent, key: string, defaultValue: unknown): unknown {
-        return this.storeManager.get(key, defaultValue);
+        return this.configManager.get(key, defaultValue);
     }
 
     /**
@@ -53,7 +53,7 @@ export class StoreHandlers {
      */
     @IpcOn(IPC_CHANNELS.STORE.SET)
     public setHandler(_: IpcMainEvent, key: string, value: unknown): void {
-        this.storeManager.set(key, value);
+        this.configManager.set(key, value);
     }
 
     /**
@@ -67,7 +67,7 @@ export class StoreHandlers {
      */
     @IpcOn(IPC_CHANNELS.STORE.DELETE)
     public deleteHandler(_: IpcMainEvent, key: string): void {
-        this.storeManager.delete(key);
+        this.configManager.delete(key);
     }
 
     /**
@@ -78,6 +78,6 @@ export class StoreHandlers {
      */
     @IpcOn(IPC_CHANNELS.STORE.RESET)
     public resetHandler(): void {
-        this.storeManager.reset();
+        this.configManager.reset();
     }
 }
