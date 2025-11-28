@@ -3,13 +3,22 @@ import fs from 'fs';
 import {app, App} from 'electron';
 import * as process from "node:process";
 import {ResourceConfig} from "../types/resource.ts";
+import {Logger} from "../logger/Logger.ts";
+import {LOG_MODULE_NAME} from "../constants/log.enum.ts";
 
 export class ResourceManager {
     private static instance: ResourceManager;
     private app: App;
     private readonly isPackaged: boolean;
     private readonly resourceConfig: ResourceConfig;
+    private readonly logger: Logger = new Logger(LOG_MODULE_NAME.MAIN);
 
+    /**
+     * Initializes the ResourceManager instance.
+     *
+     * @param appInstance The instance of the app.
+     * @param config Configuration for resources, defaults to an empty object.
+     */
     constructor(appInstance: App, config: ResourceConfig = {}) {
         this.app = appInstance;
         this.isPackaged = appInstance.isPackaged;
@@ -21,6 +30,14 @@ export class ResourceManager {
         this.ensureResourceDirsSync();
     }
 
+    /**
+     * Initializes the ResourceManager instance as a singleton.
+     * This method will create a new instance only if it's not already initialized.
+     *
+     * @param appInstance The instance of the app (optional).
+     * @param config Configuration for resources (optional).
+     * @returns The ResourceManager instance.
+     */
     public static initialize(appInstance: App = app, config?: ResourceConfig): ResourceManager {
         if (!ResourceManager.instance) {
             ResourceManager.instance = new ResourceManager(appInstance, config);
@@ -29,6 +46,13 @@ export class ResourceManager {
         return ResourceManager.instance;
     }
 
+    /**
+     * Gets the singleton instance of ResourceManager.
+     * Throws an error if the instance is not initialized.
+     *
+     * @returns The ResourceManager instance.
+     * @throws {Error} If ResourceManager is not initialized.
+     */
     public static getInstance(): ResourceManager {
         if (!ResourceManager.instance) {
             throw new Error('ResourceManager not initialized. Call initialize() first.');
@@ -38,9 +62,9 @@ export class ResourceManager {
     }
 
     /**
-     * Get the base path of resources
+     * Retrieves the base path of resources depending on whether the app is packaged.
      *
-     * @returns {string} The base path of resources
+     * @returns The base path of resources
      */
     public getBasePath(): string {
         // If packaged, return the path in the production environment;
@@ -48,6 +72,10 @@ export class ResourceManager {
         return this.isPackaged ? process.resourcesPath! : this.app.getAppPath();
     }
 
+    /**
+     * Ensures that the resource directories exist by creating them if necessary.
+     * Iterates over all resources defined in the configuration and ensures their corresponding directories exist.
+     */
     public ensureResourceDirsSync(): void {
         const resourceNames = Object.keys(this.resourceConfig);
 
@@ -61,19 +89,17 @@ export class ResourceManager {
     }
 
     /**
-     * Get the absolute path of the specified resource.
+     * Retrieves the absolute path for the specified resource.
+     * If no resource name is provided, the base path of resources is returned.
      *
-     * If the resourceName is undefined or null, return the base path of resources.
-     *
-     * @param resourceName Resource name (e.g., 'locales', 'config')
-     * @returns {string} The absolute path of the resource
-     * @throws {Warning} If the resource is not configured
+     * @param resourceName The name of the resource (e.g., 'locales', 'config').
+     * @returns The absolute path of the resource.
      */
     public getResourcePath(resourceName: string | null | undefined): string {
         if (!resourceName) return this.getBasePath();
 
         const relativePath = this.resourceConfig[resourceName];
-        if (!relativePath) console.warn(`Resource '${resourceName}' is not configured.`);
+        if (!relativePath) this.logger.warn(`Resource '${resourceName}' is not configured.`);
 
         const resourceBase = this.isPackaged ?
             this.getBasePath() : path.join(this.getBasePath(), 'src', 'resources');
@@ -81,11 +107,11 @@ export class ResourceManager {
     }
 
     /**
-     * Get the absolute path of the specified file in the resource directory.
+     * Retrieves the absolute path for a specified file within the resource directory.
      *
-     * @param resourceName Resource name (e.g., 'locales', 'config')
-     * @param filename File name
-     * @return The absolute path of the file
+     * @param resourceName The name of the resource (e.g., 'locales', 'config').
+     * @param filename The name of the file within the resource.
+     * @returns The absolute path of the specified file.
      */
     public getFilePath(resourceName: string | null | undefined, filename: string): string {
         const resourcePath = this.getResourcePath(resourceName);
@@ -94,10 +120,10 @@ export class ResourceManager {
     }
 
     /**
-     * Check if the resource path exists
+     * Checks if the specified resource path exists.
      *
-     * @param resourceName Resource name
-     * @returns {boolean} True if the resource path exists, false otherwise
+     * @param resourceName The name of the resource.
+     * @returns {boolean} True if the resource path exists, otherwise false.
      */
     public resourceExists(resourceName: string): boolean {
         try {
@@ -110,12 +136,12 @@ export class ResourceManager {
     }
 
     /**
-     * Read the contents of the resource file
+     * Reads the contents of a specified resource file.
      *
-     * @param resourceName Resource name
-     * @param filename File name
-     * @param encoding File encoding, default is 'utf-8'
-     * @returns {string | null} The contents of the resource file, or null if the file does not exist
+     * @param resourceName The name of the resource (e.g., 'locales', 'config').
+     * @param filename The name of the file to be read.
+     * @param encoding The encoding of the file, default is 'utf-8'.
+     * @returns The contents of the file as a string, or null if the file does not exist.
      */
     public readResourceFile(
         resourceName: string | null | undefined,
@@ -131,17 +157,17 @@ export class ResourceManager {
 
             return null;
         } catch (error) {
-            console.error(`Error reading file ${filename} from ${resourceName}: `, error);
+            this.logger.error(`Error reading file ${filename} from ${resourceName}: `, error);
             return null;
         }
     }
 
     /**
-     * Read JSON file
+     * Reads and parses a JSON file from the resource directory.
      *
-     * @param resourceName Resource name
-     * @param filename File name
-     * @returns {T | null} The JSON, or null if the file does not exist
+     * @param resourceName The name of the resource (e.g., 'locales', 'config').
+     * @param filename The name of the JSON file to be read.
+     * @returns The parsed JSON object, or null if the file does not exist or an error occurs.
      */
     public readJsonFile<T = unknown>(resourceName: string | null | undefined, filename: string): T | null {
         try {
@@ -149,10 +175,8 @@ export class ResourceManager {
 
             return content ? JSON.parse(content) as T : null;
         } catch (error) {
-            console.error(`Error parsing JSON from ${filename}: `, error);
+            this.logger.error(`Error parsing JSON from ${filename}: `, error);
             return null;
         }
     }
 }
-
-export default ResourceManager;
