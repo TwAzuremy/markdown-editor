@@ -143,12 +143,22 @@ function initializeIpc() {
     new ConfigHandlers(configManager);
 }
 
+/**
+ * Initializes the logger configuration, setting up file and console transports with specified log levels.
+ *
+ * This function configures the log file's path, format, and log levels for both packaged and non-packaged environments.
+ * It ensures that logs are written in a structured format and adjusts the log levels accordingly.
+ *
+ * @param logPath - The path where the log file will be saved.
+ */
 function initializeLoggerConfiguration(logPath: string) {
+    // Clear the contents of the log file at the provided path (or create an empty file if it doesn't exist).
     fs.writeFileSync(logPath, '');
 
     log.transports.file.resolvePathFn = () => logPath;
     log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}.{ms}] [{level}] {text}';
 
+    // Set the log level based on whether the app is packaged or not.
     if (app.isPackaged) {
         log.transports.file.level = 'info';
         log.transports.console.level = false;
