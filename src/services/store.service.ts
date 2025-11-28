@@ -1,11 +1,11 @@
 import {IpcHandle, IpcOn, RegisterIpcHandlers} from "../decorators/ipc.decorator.ts";
 import type { IpcMainEvent } from 'electron';
-import {StoreManager} from "../store/StoreManager.ts";
+import {StoreManager} from "../managers/StoreManager.ts";
 import {IPC_CHANNELS} from "../constants/ipc.enum.ts";
 
 /**
  * A class that handles store-related operations for the Electron application.
- * This class provides methods to interact with a store manager, including
+ * This class provides methods to interact with a store managers, including
  * getting, setting, deleting, and resetting store data. These operations are
  * triggered via IPC channels.
  *

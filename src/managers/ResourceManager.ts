@@ -137,24 +137,6 @@ export class ResourceManager {
             return null;
         }
     }
-
-    /**
-     * Dev Env Debug Information
-     *
-     * @returns {Object} Debug information
-     */
-    public debugInfo(): { [key: string]: string } {
-        const info: { [key: string]: string } = {
-            isPackaged: this.isPackaged.toString(),
-            basePath: this.getBasePath()
-        };
-
-        Object.keys(this.resourceConfig).forEach(key => {
-            info[key] = this.getResourcePath(key);
-        });
-
-        return info;
-    }
 }
 
 let resourceManager: ResourceManager | null = null;

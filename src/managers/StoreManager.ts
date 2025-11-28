@@ -1,6 +1,6 @@
 import Store from 'electron-store';
 import {StoreSchema, WindowBounds} from "../types/config.ts";
-import ResourceManager, {getResourceManager} from "../manager/ResourceManager.ts";
+import ResourceManager, {getResourceManager} from "./ResourceManager.ts";
 import {RESOURCE_NAME} from "../constants/resources.enum.ts";
 import {STORE_KEY} from "../constants/config.enum.ts";
 

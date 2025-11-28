@@ -4,12 +4,12 @@ import {fileURLToPath} from 'node:url';
 import * as process from "node:process";
 import path from 'node:path';
 
-import {ResourceManager, initResourceManager} from "../manager/ResourceManager.ts";
-import {initLoggerManager, LoggerManager} from "../manager/LoggerManager.ts";
+import {ResourceManager, initResourceManager} from "../managers/ResourceManager.ts";
+import {initLoggerManager, LoggerManager} from "../managers/LoggerManager.ts";
 import {RESOURCE_NAME} from "../constants/resources.enum.ts";
 import {LOG_MODULE_NAME} from "../constants/log.enum.ts";
 import {LogUtil} from "../utils/LogUtil.ts";
-import {getStoreManager, StoreManager} from "../store/StoreManager.ts";
+import {getStoreManager, StoreManager} from "../managers/StoreManager.ts";
 import {STORE_KEY} from "../constants/config.enum.ts";
 import {unregisterAllIpcHandlers} from "../decorators/ipc.decorator.ts";
 
@@ -130,7 +130,7 @@ function windowListeners(win: BrowserWindow) {
  *
  * This function creates a handler instance for the current window,
  * creates a registrar for the handler instance, adds the registrar
- * to the IPC manager, and registers all IPCs.
+ * to the IPC managers, and registers all IPCs.
  */
 function initializeIpc() {
     new WindowHandlers(win);
