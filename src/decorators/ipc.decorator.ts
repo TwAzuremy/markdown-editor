@@ -5,9 +5,9 @@ import 'reflect-metadata';
 import {IpcConfig, IpcHandler, IpcHandlerMetadata, IpcInvokeHandler} from "../types/ipc.ts";
 import {IPC_HANDLERS_METADATA_KEY, IPC_MAIN_OPERATION} from "../constants/ipc.enum.ts";
 import {LOG_MODULE_NAME} from "../constants/log.enum.ts";
-import {LogUtil} from "../utils/LogUtil.ts";
+import {Logger} from "../logger/Logger.ts";
 
-const logger = new LogUtil(LOG_MODULE_NAME.IPC);
+const logger = new Logger(LOG_MODULE_NAME.IPC);
 
 /**
  * A global set that stores all the classes registered as IPC (Inter-Process Communication) processors.

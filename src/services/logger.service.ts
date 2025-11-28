@@ -1,8 +1,7 @@
 import {IpcOn, RegisterIpcHandlers} from "../decorators/ipc.decorator.ts";
 import type {IpcMainEvent} from 'electron';
-import {LOG_MODULE_NAME} from "../constants/log.enum.ts";
-import log from "electron-log";
 import {IPC_CHANNELS} from "../constants/ipc.enum.ts";
+import {Logger} from "../logger/Logger.ts";
 
 /**
  * A class that handles logging operations for an Electron application.
@@ -25,8 +24,8 @@ export class LoggerHandlers {
      * @param args - Additional arguments to be logged.
      */
     @IpcOn(IPC_CHANNELS.LOGGER.INFO)
-    public infoHandler(_: IpcMainEvent, module: LOG_MODULE_NAME | string, ...args: unknown[]): void {
-        log.info(`${module}`, ...args);
+    public infoHandler(_: IpcMainEvent, module: string, ...args: unknown[]): void {
+        Logger.info(module, ...args);
     }
 
     /**
@@ -40,8 +39,8 @@ export class LoggerHandlers {
      * @param args - Additional arguments to be logged.
      */
     @IpcOn(IPC_CHANNELS.LOGGER.WARN)
-    public warnHandler(_: IpcMainEvent, module: LOG_MODULE_NAME | string, ...args: unknown[]): void {
-        log.warn(`${module}`, ...args);
+    public warnHandler(_: IpcMainEvent, module: string, ...args: unknown[]): void {
+        Logger.warn(module, ...args);
     }
 
     /**
@@ -55,8 +54,8 @@ export class LoggerHandlers {
      * @param args - Additional arguments to be logged.
      */
     @IpcOn(IPC_CHANNELS.LOGGER.ERROR)
-    public errorHandler(_: IpcMainEvent, module: LOG_MODULE_NAME | string, ...args: unknown[]): void {
-        log.error(`${module}`, ...args);
+    public errorHandler(_: IpcMainEvent, module: string, ...args: unknown[]): void {
+        Logger.error(module, ...args);
     }
 
     /**
@@ -70,8 +69,8 @@ export class LoggerHandlers {
      * @param args - Additional arguments to be logged.
      */
     @IpcOn(IPC_CHANNELS.LOGGER.DEBUG)
-    public debugHandler(_: IpcMainEvent, module: LOG_MODULE_NAME | string, ...args: unknown[]): void {
-        log.debug(`${module}`, ...args);
+    public debugHandler(_: IpcMainEvent, module: string, ...args: unknown[]): void {
+        Logger.debug(module, ...args);
     }
 
     /**
@@ -85,7 +84,7 @@ export class LoggerHandlers {
      * @param args - Additional arguments to be logged.
      */
     @IpcOn(IPC_CHANNELS.LOGGER.VERBOSE)
-    public verboseHandler(_: IpcMainEvent, module: LOG_MODULE_NAME | string, ...args: unknown[]): void {
-        log.verbose(`${module}`, ...args);
+    public verboseHandler(_: IpcMainEvent, module: string, ...args: unknown[]): void {
+        Logger.verbose(module, ...args);
     }
 }

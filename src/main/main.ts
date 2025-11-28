@@ -3,12 +3,13 @@ import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 import * as process from "node:process";
 import path from 'node:path';
+import fs from "fs";
+import log from "electron-log";
 
 import {ResourceManager} from "../managers/ResourceManager.ts";
-import {initLoggerManager, LoggerManager} from "../managers/LoggerManager.ts";
 import {RESOURCE_NAME} from "../constants/resources.enum.ts";
+import {Logger} from "../logger/Logger.ts";
 import {LOG_MODULE_NAME} from "../constants/log.enum.ts";
-import {LogUtil} from "../utils/LogUtil.ts";
 import {getStoreManager, StoreManager} from "../managers/StoreManager.ts";
 import {STORE_KEY} from "../constants/config.enum.ts";
 import {unregisterAllIpcHandlers} from "../decorators/ipc.decorator.ts";
@@ -52,15 +53,17 @@ const resourceManager: ResourceManager = ResourceManager.initialize(app, {
     config: RESOURCE_NAME.CONFIG,
 });
 
+// Initialize Log Configuration
+initializeLoggerConfiguration(
+    path.join(resourceManager.getResourcePath(RESOURCE_NAME.LOGS), 'latest.log')
+);
+
 const storeManager: StoreManager = getStoreManager();
 
 // Initialize Logger Manager
-const loggerManager: LoggerManager = initLoggerManager();
-const logger = new LogUtil(LOG_MODULE_NAME.MAIN);
+const logger = new Logger(LOG_MODULE_NAME.MAIN);
 
 function createWindow() {
-    // Initialize configuration logging
-    loggerManager.initialization();
     logger.info('App is starting...');
 
     const windowBounds = storeManager.getWindowBounds();
@@ -137,6 +140,21 @@ function initializeIpc() {
     new ResourceHandlers(resourceManager);
     new LoggerHandlers();
     new StoreHandlers(storeManager);
+}
+
+function initializeLoggerConfiguration(logPath: string) {
+    fs.writeFileSync(logPath, '');
+
+    log.transports.file.resolvePathFn = () => logPath;
+    log.transports.file.format = '[{y}-{m}-{d} {h}:{i}:{s}.{ms}] [{level}] {text}';
+
+    if (app.isPackaged) {
+        log.transports.file.level = 'info';
+        log.transports.console.level = false;
+    } else {
+        log.transports.file.level = 'debug';
+        log.transports.console.level = 'debug';
+    }
 }
 
 /**

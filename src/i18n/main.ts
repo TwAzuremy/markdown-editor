@@ -4,7 +4,7 @@ import {RESOURCE_NAME} from "@/constants/resources.enum.ts";
 import {EventEmitter} from "@/events/EventEmitter.ts";
 import {EVENT_NAME} from "@/constants/events.enum.ts";
 import {LOG_MODULE_NAME} from "@/constants/log.enum.ts";
-import {IpcLogUtil} from "@utils/IpcLogUtil.ts";
+import {LoggerProxy} from "@/logger/LoggerProxy.ts";
 import {STORE_KEY} from "@/constants/config.enum.ts";
 import {StoreUtil} from "@utils/StoreUtil.ts";
 
@@ -21,7 +21,7 @@ class I18n extends EventEmitter implements I18nInstance {
     private currentLang: string = 'en_us';
     // Store key-value pairs of language files.
     private readonly resources = new Map<string, string>();
-    private readonly logger = new IpcLogUtil(LOG_MODULE_NAME.I18N);
+    private readonly logger = new LoggerProxy(LOG_MODULE_NAME.I18N);
 
     /**
      * Initialize the I18n instance and event emitter.

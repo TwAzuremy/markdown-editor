@@ -2,7 +2,7 @@ import {useCallback, useEffect, useState} from "react";
 import {I18nInstance} from "@/types/language.ts";
 import {getI18n} from "@/i18n/main.ts";
 import {EVENT_NAME} from "@/constants/events.enum.ts";
-import {LogUtil} from "@utils/LogUtil.ts";
+import {Logger} from "@/logger/Logger.ts";
 import {LOG_MODULE_NAME} from "@/constants/log.enum.ts";
 
 /**
@@ -48,7 +48,7 @@ export function useI18n() {
         try {
             await i18nState.instance.changeLanguage(language);
         } catch (error) {
-            LogUtil.error(LOG_MODULE_NAME.I18N, 'Failed to change language: ', error);
+            Logger.error(LOG_MODULE_NAME.I18N, 'Failed to change language: ', error);
         }
     }, [i18nState.instance]);
 
