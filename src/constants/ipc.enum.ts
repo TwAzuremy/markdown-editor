@@ -37,10 +37,10 @@ export const IPC_CHANNELS =  {
         DEBUG: 'logger:debug',
         VERBOSE: 'logger:verbose'
     },
-    STORE: {
-        GET: 'store:get',
-        SET: 'store:set',
-        DELETE: 'store:delete',
-        RESET: 'store:reset'
+    CONFIG: {
+        GET: 'config:get',
+        SET: 'config:set',
+        DELETE: 'config:delete',
+        RESET: 'config:reset'
     }
 } as const;

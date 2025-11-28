@@ -36,7 +36,7 @@ export class ConfigHandlers {
      *
      * @returns The value associated with the given key, or the default value if the key is not found.
      */
-    @IpcHandle(IPC_CHANNELS.STORE.GET)
+    @IpcHandle(IPC_CHANNELS.CONFIG.GET)
     public getHandler(_: IpcMainEvent, key: string, defaultValue: unknown): unknown {
         return this.configManager.get(key, defaultValue);
     }
@@ -51,7 +51,7 @@ export class ConfigHandlers {
      * @param key - The key under which the value should be stored.
      * @param value - The value to store in the store under the specified key.
      */
-    @IpcOn(IPC_CHANNELS.STORE.SET)
+    @IpcOn(IPC_CHANNELS.CONFIG.SET)
     public setHandler(_: IpcMainEvent, key: string, value: unknown): void {
         this.configManager.set(key, value);
     }
@@ -65,7 +65,7 @@ export class ConfigHandlers {
      * @param _
      * @param key - The key whose associated value should be deleted from the store.
      */
-    @IpcOn(IPC_CHANNELS.STORE.DELETE)
+    @IpcOn(IPC_CHANNELS.CONFIG.DELETE)
     public deleteHandler(_: IpcMainEvent, key: string): void {
         this.configManager.delete(key);
     }
@@ -76,7 +76,7 @@ export class ConfigHandlers {
      * This method is triggered by the IPC channel defined in `IPC_CHANNELS.STORE.RESET`
      * and resets the store, clearing all stored values.
      */
-    @IpcOn(IPC_CHANNELS.STORE.RESET)
+    @IpcOn(IPC_CHANNELS.CONFIG.RESET)
     public resetHandler(): void {
         this.configManager.reset();
     }

@@ -6,7 +6,7 @@ import {EVENT_NAME} from "@/constants/events.enum.ts";
 import {LOG_MODULE_NAME} from "@/constants/log.enum.ts";
 import {LoggerProxy} from "@/logger/LoggerProxy.ts";
 import {CONFIG_KEY} from "@/constants/config.enum.ts";
-import {StoreUtil} from "@utils/StoreUtil.ts";
+import {ConfigProxy} from "@utils/ConfigProxy.ts";
 
 // fallback language
 import FALLBACK_LANGUAGE from "./fallback.json";
@@ -38,7 +38,7 @@ class I18n extends EventEmitter implements I18nInstance {
     public async initialize(): Promise<void> {
         this.logger.info(`Initializing i18n...`);
         // Get the language used from the configuration.
-        this.currentLang = await StoreUtil.get(CONFIG_KEY.LANGUAGE, 'en_us') as string;
+        this.currentLang = await ConfigProxy.get(CONFIG_KEY.LANGUAGE, 'en_us') as string;
 
         await this.loadLanguage(this.currentLang, true);
     }
@@ -70,7 +70,7 @@ class I18n extends EventEmitter implements I18nInstance {
         if (language !== this.currentLang) {
             await this.loadLanguage(language);
             // Save the language used.
-            StoreUtil.set(CONFIG_KEY.LANGUAGE, language);
+            ConfigProxy.set(CONFIG_KEY.LANGUAGE, language);
             this.logger.info(`Language changed to: ${language}`);
 
             // Emit the event indicating that the language has changed.
