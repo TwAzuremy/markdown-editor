@@ -1,6 +1,4 @@
 import {ipcRenderer, contextBridge} from 'electron';
-import {LOG_MODULE_NAME} from "../constants/log.enum.ts";
-import {IPC_CHANNELS} from "../constants/ipc.enum.ts";
 
 // --------- Expose some API to the Renderer process ---------
 contextBridge.exposeInMainWorld('ipcRenderer', {
