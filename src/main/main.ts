@@ -59,7 +59,7 @@ initializeLoggerConfiguration(
 );
 
 // Initialize Logger Manager
-const logger = new Logger(LOG_MODULE_NAME.MAIN);
+export const logger = new Logger(LOG_MODULE_NAME.MAIN);
 
 // Initialize Configuration
 const configManager: ConfigManager = ConfigManager.initialize();
