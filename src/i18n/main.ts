@@ -7,6 +7,7 @@ import {LOG_MODULE_NAME} from "@/constants/log.enum.ts";
 import {LoggerProxy} from "@/logger/LoggerProxy.ts";
 import {CONFIG_KEY} from "@/constants/config.enum.ts";
 import {ConfigProxy} from "@utils/ConfigProxy.ts";
+import {IpcHelper} from "@utils/IpcHelper.ts";
 
 // fallback language
 import FALLBACK_LANGUAGE from "./fallback.json";
@@ -97,7 +98,7 @@ class I18n extends EventEmitter implements I18nInstance {
         if (this.currentLang === language && !mandatory) return;
 
         try {
-            const translation = await window.ipcRenderer.fetch(
+            const translation = await IpcHelper.request(
                 IPC_CHANNELS.RESOURCE.READ_JSON, RESOURCE_NAME.LOCALES, `${language}.json`
             );
 

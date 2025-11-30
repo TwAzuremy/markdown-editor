@@ -1,8 +1,11 @@
+import {IpcHelper} from "@utils/IpcHelper.ts";
+import {IPC_CHANNELS} from "@/constants/ipc.enum.ts";
+
 /**
  * LoggerProxy class is a singleton pattern wrapper for logging messages with different log levels.
  * It provides static and instance methods for logging messages, allowing both direct and module-specific logging.
  * This class ensures that only a single instance of the logger exists across the application.
- * It is designed to work with a global `window.logger` object for logging to a specific logging system.
+ * It is designed to be used with the `IpcHelper` object for logging to a specific logging system.
  *
  * @example
  * // Static methods (global access):
@@ -11,6 +14,7 @@
  *
  * // Instance methods (module-specific logging):
  * const logger = LoggerProxy.getInstance('ModuleName');
+ *
  * logger.info('This is an info message');
  * logger.error('This is an error message');
  */
@@ -50,7 +54,7 @@ export class LoggerProxy {
      * @param args The message or data to log.
      */
     public static info(moduleName: string = '', ...args: unknown[]): void {
-        window.logger.info(moduleName, ...args);
+        IpcHelper.emit(IPC_CHANNELS.LOGGER.INFO, moduleName, ...args);
     }
 
     /**
@@ -60,7 +64,7 @@ export class LoggerProxy {
      * @param args The message or data to log.
      */
     public static warn(moduleName: string = '', ...args: unknown[]): void {
-        window.logger.warn(moduleName, ...args);
+        IpcHelper.emit(IPC_CHANNELS.LOGGER.WARN, moduleName, ...args);
     }
 
     /**
@@ -70,7 +74,7 @@ export class LoggerProxy {
      * @param args The message or data to log.
      */
     public static error(moduleName: string = '', ...args: unknown[]): void {
-        window.logger.error(moduleName, ...args);
+        IpcHelper.emit(IPC_CHANNELS.LOGGER.ERROR, moduleName, ...args);
     }
 
     /**
@@ -80,7 +84,7 @@ export class LoggerProxy {
      * @param args The message or data to log.
      */
     public static debug(moduleName: string = '', ...args: unknown[]): void {
-        window.logger.debug(moduleName, ...args);
+        IpcHelper.emit(IPC_CHANNELS.LOGGER.DEBUG, moduleName, ...args);
     }
 
     /**
@@ -90,7 +94,7 @@ export class LoggerProxy {
      * @param args The message or data to log.
      */
     public static verbose(moduleName: string = '', ...args: unknown[]): void {
-        window.logger.verbose(moduleName, ...args);
+        IpcHelper.emit(IPC_CHANNELS.LOGGER.VERBOSE, moduleName, ...args);
     }
 
     /**
@@ -99,7 +103,7 @@ export class LoggerProxy {
      * @param args The message or data to log.
      */
     public info(...args: unknown[]): void {
-        window.logger.info(this.moduleName, ...args);
+        IpcHelper.emit(IPC_CHANNELS.LOGGER.INFO, this.moduleName, ...args);
     }
 
     /**
@@ -108,7 +112,7 @@ export class LoggerProxy {
      * @param args The message or data to log.
      */
     public warn(...args: unknown[]): void {
-        window.logger.warn(this.moduleName, ...args);
+        IpcHelper.emit(IPC_CHANNELS.LOGGER.WARN, this.moduleName, ...args);
     }
 
     /**
@@ -117,7 +121,7 @@ export class LoggerProxy {
      * @param args The message or data to log.
      */
     public error(...args: unknown[]): void {
-        window.logger.error(this.moduleName, ...args);
+        IpcHelper.emit(IPC_CHANNELS.LOGGER.ERROR, this.moduleName, ...args);
     }
 
     /**
@@ -126,7 +130,7 @@ export class LoggerProxy {
      * @param args The message or data to log.
      */
     public debug(...args: unknown[]): void {
-        window.logger.debug(this.moduleName, ...args);
+        IpcHelper.emit(IPC_CHANNELS.LOGGER.DEBUG, this.moduleName, ...args);
     }
 
     /**
@@ -135,7 +139,7 @@ export class LoggerProxy {
      * @param args The message or data to log.
      */
     public verbose(...args: unknown[]): void {
-        window.logger.verbose(this.moduleName, ...args);
+        IpcHelper.emit(IPC_CHANNELS.LOGGER.VERBOSE, this.moduleName, ...args);
     }
 
     /**

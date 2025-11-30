@@ -23,44 +23,4 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
 
     // You can expose other APTs you need here.
     // ...
-
-    command(...args: Parameters<typeof ipcRenderer.send>) {
-        const [channel] = args;
-        ipcRenderer.send(channel);
-    },
-    query(...args: Parameters<typeof ipcRenderer.invoke>) {
-        const [channel] = args;
-        return ipcRenderer.invoke(channel);
-    },
-    execute(...args: Parameters<typeof ipcRenderer.send>) {
-        const [channel, ...omit] = args;
-        ipcRenderer.send(channel, ...omit);
-    },
-    fetch(...args: Parameters<typeof ipcRenderer.invoke>) {
-        const [channel, ...omit] = args;
-        return ipcRenderer.invoke(channel, ...omit);
-    },
-});
-
-contextBridge.exposeInMainWorld('logger', {
-    info(...args: Parameters<LoggerHandler>) {
-        const [module, ...omit] = args;
-        ipcRenderer.send(IPC_CHANNELS.LOGGER.INFO, module || LOG_MODULE_NAME.RENDERER, ...omit);
-    },
-    warn(...args: Parameters<LoggerHandler>) {
-        const [module, ...omit] = args;
-        ipcRenderer.send(IPC_CHANNELS.LOGGER.WARN, module || LOG_MODULE_NAME.RENDERER, ...omit);
-    },
-    error(...args: Parameters<LoggerHandler>) {
-        const [module, ...omit] = args;
-        ipcRenderer.send(IPC_CHANNELS.LOGGER.ERROR, module || LOG_MODULE_NAME.RENDERER, ...omit);
-    },
-    debug(...args: Parameters<LoggerHandler>) {
-        const [module, ...omit] = args;
-        ipcRenderer.send(IPC_CHANNELS.LOGGER.DEBUG, module || LOG_MODULE_NAME.RENDERER, ...omit);
-    },
-    verbose(...args: Parameters<LoggerHandler>) {
-        const [module, ...omit] = args;
-        ipcRenderer.send(IPC_CHANNELS.LOGGER.VERBOSE, module || LOG_MODULE_NAME.RENDERER, ...omit);
-    },
 });

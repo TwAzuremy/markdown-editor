@@ -1,4 +1,5 @@
 import {IPC_CHANNELS} from "@/constants/ipc.enum.ts";
+import {IpcHelper} from "@utils/IpcHelper.ts";
 
 /**
  * Utility class for interacting with a data store through IPC (Inter-Process Communication).
@@ -19,7 +20,7 @@ export class ConfigProxy {
      * @returns A promise that resolves to the value associated with the given key, or the default value if not found.
      */
     public static async get(key: string, defaultValue?: unknown): Promise<unknown> {
-        return await window.ipcRenderer.fetch(IPC_CHANNELS.CONFIG.GET, key, defaultValue);
+        return await IpcHelper.request(IPC_CHANNELS.CONFIG.GET, key, defaultValue);
     }
 
     /**
@@ -31,7 +32,7 @@ export class ConfigProxy {
      * @param value - The value to be stored.
      */
     public static set(key: string, value: unknown): void {
-        window.ipcRenderer.execute(IPC_CHANNELS.CONFIG.SET, key, value);
+        IpcHelper.emit(IPC_CHANNELS.CONFIG.SET, key, value);
     }
 
     /**
@@ -43,7 +44,7 @@ export class ConfigProxy {
      */
     public static delete(key: string): void {
         // noinspection JSIgnoredPromiseFromCall
-        window.ipcRenderer.execute(IPC_CHANNELS.CONFIG.DELETE, key);
+        IpcHelper.emit(IPC_CHANNELS.CONFIG.DELETE, key);
     }
 
     /**
@@ -52,6 +53,6 @@ export class ConfigProxy {
      * This method sends a command to reset the store, effectively clearing all data stored under any key.
      */
     public static reset(): void {
-        window.ipcRenderer.command(IPC_CHANNELS.CONFIG.RESET);
+        IpcHelper.emit(IPC_CHANNELS.CONFIG.RESET);
     }
 }
