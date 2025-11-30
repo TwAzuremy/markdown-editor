@@ -3,15 +3,13 @@ import fs from 'fs';
 import {app, App} from 'electron';
 import * as process from "node:process";
 import {ResourceConfig} from "../types/resource.type.ts";
-import {Logger} from "../logger/Logger.ts";
-import {LOG_MODULE_NAME} from "../constants/log.enum.ts";
+import {logger} from "../main/main.ts";
 
 export class ResourceManager {
     private static instance: ResourceManager;
     private app: App;
     private readonly isPackaged: boolean;
     private readonly resourceConfig: ResourceConfig;
-    private readonly logger: Logger = new Logger(LOG_MODULE_NAME.MAIN);
 
     /**
      * Initializes the ResourceManager instance.
@@ -99,7 +97,7 @@ export class ResourceManager {
         if (!resourceName) return this.getBasePath();
 
         const relativePath = this.resourceConfig[resourceName];
-        if (!relativePath) this.logger.warn(`Resource '${resourceName}' is not configured.`);
+        if (!relativePath) logger.warn(`Resource '${resourceName}' is not configured.`);
 
         const resourceBase = this.isPackaged ?
             this.getBasePath() : path.join(this.getBasePath(), 'src', 'resources');
@@ -117,66 +115,5 @@ export class ResourceManager {
         const resourcePath = this.getResourcePath(resourceName);
 
         return path.join(resourcePath, filename);
-    }
-
-    /**
-     * Checks if the specified resource path exists.
-     *
-     * @param resourceName The name of the resource.
-     * @returns {boolean} True if the resource path exists, otherwise false.
-     */
-    public resourceExists(resourceName: string): boolean {
-        try {
-            const resourcePath = this.getResourcePath(resourceName);
-
-            return fs.existsSync(resourcePath);
-        } catch {
-            return false;
-        }
-    }
-
-    /**
-     * Reads the contents of a specified resource file.
-     *
-     * @param resourceName The name of the resource (e.g., 'locales', 'config').
-     * @param filename The name of the file to be read.
-     * @param encoding The encoding of the file, default is 'utf-8'.
-     * @returns The contents of the file as a string, or null if the file does not exist.
-     */
-    public readResourceFile(
-        resourceName: string | null | undefined,
-        filename: string,
-        encoding: BufferEncoding = 'utf-8'
-    ): string | null {
-        try {
-            const filePath = this.getFilePath(resourceName, filename);
-
-            if (fs.existsSync(filePath)) {
-                return fs.readFileSync(filePath, encoding);
-            }
-
-            return null;
-        } catch (error) {
-            this.logger.error(`Error reading file ${filename} from ${resourceName}: `, error);
-            return null;
-        }
-    }
-
-    /**
-     * Reads and parses a JSON file from the resource directory.
-     *
-     * @param resourceName The name of the resource (e.g., 'locales', 'config').
-     * @param filename The name of the JSON file to be read.
-     * @returns The parsed JSON object, or null if the file does not exist or an error occurs.
-     */
-    public readJsonFile<T = unknown>(resourceName: string | null | undefined, filename: string): T | null {
-        try {
-            const content = this.readResourceFile(resourceName, filename);
-
-            return content ? JSON.parse(content) as T : null;
-        } catch (error) {
-            this.logger.error(`Error parsing JSON from ${filename}: `, error);
-            return null;
-        }
     }
 }

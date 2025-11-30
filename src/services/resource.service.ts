@@ -5,6 +5,7 @@ import {LanguageMap} from "../types/language.type.ts";
 import {getLanguageMap} from "../utils/LanguageUtils.ts";
 import {RESOURCE_NAME} from "../constants/resources.enum.ts";
 import {IPC_CHANNELS} from "../constants/ipc.enum.ts";
+import FileUtil from "../utils/FileUtil.ts";
 
 /**
  * A class that handles resource-related operations for an Electron application.
@@ -67,7 +68,13 @@ export class ResourceHandlers {
      * @returns The parsed JSON object, or `null` if the file could not be read.
      */
     @IpcHandle(IPC_CHANNELS.RESOURCE.READ_JSON)
-    public readJsonHandler(_: IpcMainEvent, resourceName: string, filename: string): object | null {
-        return this.resourceManager.readJsonFile(resourceName, filename);
+    public async readJsonHandler(
+        _: IpcMainEvent,
+        resourceName: string,
+        filename: string
+    ): Promise<object | null> {
+        const filepath = this.resourceManager.getFilePath(resourceName, filename);
+
+        return await FileUtil.readJson(filepath);
     }
 }
